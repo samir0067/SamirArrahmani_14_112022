@@ -11,6 +11,7 @@ __metadata:
   dependencies:
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5
+    "@fontsource/roboto": ^4.5.8
     "@hookform/resolvers": ^2.9.10
     "@mui/icons-material": ^5.11.0
     "@mui/material": ^5.11.2
@@ -2052,6 +2053,13 @@ __metadata:
     minimatch: ^3.1.2
     strip-json-comments: ^3.1.1
   checksum: 73e39c833deafde8d8706e6fa9b52b6d99927c094ead8e405ea4174e8197ec24aac9ba88ae38cc8ad32eaccf07b9c7fc5dc70761d1fba6da41a928691447305f
+  languageName: node
+  linkType: hard
+
+"@fontsource/roboto@npm:^4.5.8":
+  version: 4.5.8
+  resolution: "@fontsource/roboto@npm:4.5.8"
+  checksum: 460b6de2c9f7a172192c3f5bdd3aa11f78f0b6660dca9dc2b9d8207272b50c55b5a8f2da68e11e7fbaf44c7d3cf4191030eecce9def79fab75d4cc1de39754e2
   languageName: node
   linkType: hard
 
