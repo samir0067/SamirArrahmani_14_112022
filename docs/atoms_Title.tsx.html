@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Button.tsx</title>
+  <title> atoms/Title.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#Title">Title</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Header.html">Header</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#Title">Title</a></li></ul></div>
                 
             </nav>
         </div>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>Button.tsx</h1>
+                    <h1>atoms/Title.tsx</h1>
                 </header>
                 
 
@@ -89,85 +89,43 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC, ReactNode } from "react";
-import { Button as MuiButton, SxProps } from "@mui/material";
-import { colors } from "utils/constants";
-import "@fontsource/roboto/700.css";
+            <pre class="prettyprint source linenums"><code>import React, { ElementType, FC } from "react";
+import { Slide, SxProps, Theme, Typography } from "@mui/material";
+import { VariantTypo } from "utils/types";
+import "@fontsource/sintony/700.css";
 
-type ButtonProps = {
-  label: string;
-  onClick: () => void;
-  icon?: ReactNode;
-  sx?: SxProps;
-  color?: string;
-  margin?: string;
-  disabled?: boolean;
-  size?: "medium" | "small" | "large";
-  variant?: "text" | "contained" | "outlined";
-  backgroundColor?: string;
-  backgroundColorHover?: string;
-  borderColor?: string;
+type TitleProps = {
+  title: string;
+  variant: VariantTypo;
+  component: ElementType;
+  writerEffect?: JSX.Element;
+  sx?: SxProps&lt;Theme>;
+  slideDirection?: "right" | "left" | "up" | "down";
 };
 
 /**
- * Generic button used for form validation
- * @param {string} label
- * @param {function} onClick
- * @param {text | contained | outlined} variant
- * @param {ReactNode} icon
+ * Title component with slide effect
+ * @param {ElementType} component
+ * @param {VariantTypo} variant
+ * @param {string} title
  * @param {SxProps} sx
- * @param {string} margin
- * @param {medium | small | large} size
- * @param {boolean} disabled
- * @param {string} color
- * @param {string} backgroundColor
- * @param {string} backgroundColorHover
- * @param {string} borderColor
+ * @param {right | left | up | down} slideDirection
  */
-export const Button: FC&lt;ButtonProps> = ({
-  label,
-  onClick,
-  variant,
-  icon,
-  sx,
-  margin,
-  size,
-  disabled,
-  color,
-  backgroundColor,
-  backgroundColorHover,
-  borderColor,
-}: ButtonProps) => {
+export const Title: FC&lt;TitleProps> = ({ component, variant, title, sx, slideDirection }: TitleProps) => {
   return (
-    &lt;MuiButton
-      startIcon={icon}
-      size={size}
-      variant={variant}
-      onClick={onClick}
-      disabled={disabled}
-      sx={{
-        ...sx,
-        margin: margin,
-        padding: "7px 23px",
-        borderRadius: "9px",
-        fontFamily: "Roboto",
-        borderColor: borderColor,
-        backgroundColor: variant === "contained" ? backgroundColor : "",
-        color: color,
-        "&amp;:hover": { backgroundColor: backgroundColorHover },
-      }}
-    >
-      {label}
-    &lt;/MuiButton>
+    &lt;Slide direction={slideDirection} in={true} mountOnEnter unmountOnExit timeout={400}>
+      &lt;Typography
+        component={component}
+        variant={variant}
+        fontFamily="Sintony"
+        marginY="30px"
+        textAlign="center"
+        sx={{ ...sx, letterSpacing: "5px" }}
+      >
+        {title}
+      &lt;/Typography>
+    &lt;/Slide>
   );
-};
-
-Button.defaultProps = {
-  size: "medium",
-  variant: "contained",
-  color: colors.white,
-  backgroundColor: colors.primary,
-  backgroundColorHover: colors.tertiary,
 };
 </code></pre>
         </article>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Button.tsx</title>
+  <title> Header</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -72,106 +70,266 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#Title">Title</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Header.html">Header</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#Title">Title</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>Button.tsx</h1>
+                    <p>Class</p>
+                    <h1>Header</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC, ReactNode } from "react";
-import { Button as MuiButton, SxProps } from "@mui/material";
-import { colors } from "utils/constants";
-import "@fontsource/roboto/700.css";
+        <h2><span class="attribs"><span class="type-signature"></span></span>Header<span class="signature">(srcImg, altImg, sx)</span><span class="type-signature"></span></h2>
+        
+    
+</header>
 
-type ButtonProps = {
-  label: string;
-  onClick: () => void;
-  icon?: ReactNode;
-  sx?: SxProps;
-  color?: string;
-  margin?: string;
-  disabled?: boolean;
-  size?: "medium" | "small" | "large";
-  variant?: "text" | "contained" | "outlined";
-  backgroundColor?: string;
-  backgroundColorHover?: string;
-  borderColor?: string;
-};
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
 
-/**
- * Generic button used for form validation
- * @param {string} label
- * @param {function} onClick
- * @param {text | contained | outlined} variant
- * @param {ReactNode} icon
- * @param {SxProps} sx
- * @param {string} margin
- * @param {medium | small | large} size
- * @param {boolean} disabled
- * @param {string} color
- * @param {string} backgroundColor
- * @param {string} backgroundColorHover
- * @param {string} borderColor
- */
-export const Button: FC&lt;ButtonProps> = ({
-  label,
-  onClick,
-  variant,
-  icon,
-  sx,
-  margin,
-  size,
-  disabled,
-  color,
-  backgroundColor,
-  backgroundColorHover,
-  borderColor,
-}: ButtonProps) => {
-  return (
-    &lt;MuiButton
-      startIcon={icon}
-      size={size}
-      variant={variant}
-      onClick={onClick}
-      disabled={disabled}
-      sx={{
-        ...sx,
-        margin: margin,
-        padding: "7px 23px",
-        borderRadius: "9px",
-        fontFamily: "Roboto",
-        borderColor: borderColor,
-        backgroundColor: variant === "contained" ? backgroundColor : "",
-        color: color,
-        "&amp;:hover": { backgroundColor: backgroundColorHover },
-      }}
-    >
-      {label}
-    &lt;/MuiButton>
-  );
-};
 
-Button.defaultProps = {
-  size: "medium",
-  variant: "contained",
-  color: colors.white,
-  backgroundColor: colors.primary,
-  backgroundColorHover: colors.tertiary,
-};
-</code></pre>
-        </article>
-    </section>
+    
+    <h4 class="name" id="Header">
+        <a class="href-link" href="#Header">#</a>
+        
+        <span class="code-name">
+            
+                new Header<span class="signature">(srcImg, altImg, sx)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Header component of the application</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>srcImg</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>altImg</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>sx</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">SxProps</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="molecules_Header.tsx.html" class="button">View Source</a>
+            <span>
+                <a href="molecules_Header.tsx.html">molecules/Header.tsx</a>, <a href="molecules_Header.tsx.html#line13">line 13</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
