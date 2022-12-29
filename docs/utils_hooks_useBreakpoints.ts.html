@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/InputField.tsx</title>
+  <title> utils/hooks/useBreakpoints.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/InputField.tsx</h1>
+                    <h1>utils/hooks/useBreakpoints.ts</h1>
                 </header>
                 
 
@@ -89,77 +89,36 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC, InputHTMLAttributes } from "react";
-import * as hookForm from "react-hook-form";
-import { InputAdornment } from "@mui/material";
-import { TextField } from "molecules/textField.style";
-
-type InputFieldProps = {
-  control: hookForm.Control&lt;any> | undefined;
-  error: hookForm.FieldErrors;
-  name: string;
-  label: string;
-  placeholder?: string;
-  disabled?: boolean;
-  helperText?: any;
-  icon?: JSX.Element;
-  type?: InputHTMLAttributes&lt;unknown>["type"];
-};
+            <pre class="prettyprint source linenums"><code>import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 /**
- *
- * Generic text field used to enter the form
- * @param {hookForm.FieldErrors} error
- * @param {string} name
- * @param {string} label
- * @param {string} placeholder
- * @param {boolean} disabled
- * @param {InputHTMLAttributes&lt;unknown>["type"]} type
- * @param {JSX.Element} icon
- * @param {hookForm.Control&lt;any> | undefined} control
- * @param {any} helperText
+ * Hook to manage screen size with Breakpoint
  */
-export const InputField: FC&lt;InputFieldProps> = ({
-  control,
-  error,
-  name,
-  label,
-  placeholder,
-  disabled,
-  type,
-  icon,
-  helperText,
-}: InputFieldProps) => {
-  return (
-    &lt;hookForm.Controller
-      name={name}
-      control={control}
-      defaultValue=""
-      render={({ field: { onChange, onBlur, value, ref } }) => (
-        &lt;TextField
-          inputRef={ref}
-          disabled={disabled}
-          type={type}
-          label={label}
-          value={value}
-          onBlur={onBlur}
-          error={!!error[name]}
-          placeholder={placeholder}
-          helperText={(error[name] &amp;&amp; error[name]?.message) || helperText}
-          onChange={(value1) => onChange(value1)}
-          sx={{ my: "0.7rem" }}
-          InputProps={{
-            endAdornment: &lt;InputAdornment position="end">{icon}&lt;/InputAdornment>,
-          }}
-        />
-      )}
-    />
-  );
+const useBreakpoints = () => {
+  const theme = useTheme();
+
+  const upXs = useMediaQuery(theme.breakpoints.up("xs"));
+
+  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const downMd = useMediaQuery(theme.breakpoints.down("md"));
+
+  const downLg = useMediaQuery(theme.breakpoints.down("lg"));
+
+  const upLg = useMediaQuery(theme.breakpoints.up("lg"));
+
+  return { upXs, downSm, downMd, downLg, upLg };
 };
 
-InputField.defaultProps = {
-  type: "text",
-};
+export default useBreakpoints;
+
+// TEMPORARY
+//``xs, extra-petit : 0px``
+// ``sm, petit : 600px``
+// ``md, moyen : 900px``
+// ``lg, grand : 1 200 pixels``
+// ``xl, extra-large : 1536px``
 </code></pre>
         </article>
     </section>

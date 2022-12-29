@@ -4,6 +4,9 @@ const contentMsg = {
   requiredField: "Veuillez compléter ce champ",
 };
 
+/**
+ * To allow the validation of the fields of the employed object
+ */
 export const employeeSchema = object().shape({
   firstName: string().required(contentMsg.requiredField).trim(),
   lastName: string().required(contentMsg.requiredField).trim(),

@@ -1,6 +1,9 @@
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
+/**
+ * Hook to manage screen size with Breakpoint
+ */
 const useBreakpoints = () => {
   const theme = useTheme();
 

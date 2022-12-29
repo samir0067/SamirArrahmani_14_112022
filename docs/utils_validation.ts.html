@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/InputField.tsx</title>
+  <title> utils/validation.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/InputField.tsx</h1>
+                    <h1>utils/validation.ts</h1>
                 </header>
                 
 
@@ -89,77 +89,26 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC, InputHTMLAttributes } from "react";
-import * as hookForm from "react-hook-form";
-import { InputAdornment } from "@mui/material";
-import { TextField } from "molecules/textField.style";
+            <pre class="prettyprint source linenums"><code>import { number, object, string } from "yup";
 
-type InputFieldProps = {
-  control: hookForm.Control&lt;any> | undefined;
-  error: hookForm.FieldErrors;
-  name: string;
-  label: string;
-  placeholder?: string;
-  disabled?: boolean;
-  helperText?: any;
-  icon?: JSX.Element;
-  type?: InputHTMLAttributes&lt;unknown>["type"];
+const contentMsg = {
+  requiredField: "Veuillez compléter ce champ",
 };
 
 /**
- *
- * Generic text field used to enter the form
- * @param {hookForm.FieldErrors} error
- * @param {string} name
- * @param {string} label
- * @param {string} placeholder
- * @param {boolean} disabled
- * @param {InputHTMLAttributes&lt;unknown>["type"]} type
- * @param {JSX.Element} icon
- * @param {hookForm.Control&lt;any> | undefined} control
- * @param {any} helperText
+ * To allow the validation of the fields of the employed object
  */
-export const InputField: FC&lt;InputFieldProps> = ({
-  control,
-  error,
-  name,
-  label,
-  placeholder,
-  disabled,
-  type,
-  icon,
-  helperText,
-}: InputFieldProps) => {
-  return (
-    &lt;hookForm.Controller
-      name={name}
-      control={control}
-      defaultValue=""
-      render={({ field: { onChange, onBlur, value, ref } }) => (
-        &lt;TextField
-          inputRef={ref}
-          disabled={disabled}
-          type={type}
-          label={label}
-          value={value}
-          onBlur={onBlur}
-          error={!!error[name]}
-          placeholder={placeholder}
-          helperText={(error[name] &amp;&amp; error[name]?.message) || helperText}
-          onChange={(value1) => onChange(value1)}
-          sx={{ my: "0.7rem" }}
-          InputProps={{
-            endAdornment: &lt;InputAdornment position="end">{icon}&lt;/InputAdornment>,
-          }}
-        />
-      )}
-    />
-  );
-};
-
-InputField.defaultProps = {
-  type: "text",
-};
+export const employeeSchema = object().shape({
+  firstName: string().required(contentMsg.requiredField).trim(),
+  lastName: string().required(contentMsg.requiredField).trim(),
+  street: string().required(contentMsg.requiredField).trim(),
+  birthDate: string().nullable().trim(),
+  startDate: string().nullable().trim(),
+  zipCode: number().required(contentMsg.requiredField).truncate(),
+  city: string().required(contentMsg.requiredField).trim(),
+  state: string().required(contentMsg.requiredField).trim(),
+  department: string().nullable().trim(),
+});
 </code></pre>
         </article>
     </section>
