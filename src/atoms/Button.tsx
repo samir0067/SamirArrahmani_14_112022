@@ -18,6 +18,21 @@ type ButtonProps = {
   borderColor?: string;
 };
 
+/**
+ * Generic button used for form validation
+ * @param {string} label
+ * @param {function} onClick
+ * @param {text | contained | outlined} variant
+ * @param {ReactNode} icon
+ * @param {SxProps} sx
+ * @param {string} margin
+ * @param {medium | small | large} size
+ * @param {boolean} disabled
+ * @param {string} color
+ * @param {string} backgroundColor
+ * @param {string} backgroundColorHover
+ * @param {string} borderColor
+ */
 export const Button: FC<ButtonProps> = ({
   label,
   onClick,
