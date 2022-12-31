@@ -32,6 +32,7 @@ export const SelectField: FC<SelectFieldProps> = ({
   placeholder,
   options,
 }: SelectFieldProps) => {
+  // TODO test of the form, error on the select to fix
   return (
     <hookForm.Controller
       name={name}
