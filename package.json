@@ -38,6 +38,8 @@
     "@mui/material": "^5.11.2",
     "@mui/styled-engine-sc": "^5.11.0",
     "@mui/styles": "^5.11.2",
+    "@mui/x-date-pickers": "^5.0.12",
+    "dayjs": "^1.11.7",
     "modal-easysam": "^1.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

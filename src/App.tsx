@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Box, Container, Paper } from "@mui/material";
 import { Button } from "./atoms/Button";
 import { SelectField } from "./molecules/SelectField";
-import { DEPARTMENT } from "./utils/constants";
+import { DEPARTMENT, STATES } from "./utils/constants";
 import LOGO from "assets/logo-bg-off.png";
 import { Employee } from "./utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +14,7 @@ import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { Header } from "./molecules/Header";
 import { Title } from "./atoms/Title";
 import { Modal } from "modal-easysam";
+import { DateField } from "./molecules/DateField";
 
 const App: FC = () => {
   const [employee, setEmployee] = useState<Employee>({} as Employee);
@@ -57,10 +58,12 @@ const App: FC = () => {
             <InputField name="street" control={control} error={errors} label="Street" />
             <InputField name="zipCode" control={control} error={errors} label="Zip Code" />
             <InputField name="city" control={control} error={errors} label="City" />
-            <InputField name="state" control={control} error={errors} label="State" />
+            <SelectField name="state" control={control} error={errors} label="State" options={STATES} />
             <SelectField name="department" control={control} error={errors} label="Department" options={DEPARTMENT} />
             <Button label="Save" onClick={handleSubmit(handleEmployee)} icon={<HowToRegIcon />} />
             <Button label="Open modal" onClick={() => setOpenModal(true)} />
+
+            <DateField />
           </Box>
         </Paper>
       </Container>

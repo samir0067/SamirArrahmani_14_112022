@@ -32,7 +32,6 @@ export const SelectField: FC<SelectFieldProps> = ({
   placeholder,
   options,
 }: SelectFieldProps) => {
-  // TODO test of the form, error on the select to fix
   return (
     <hookForm.Controller
       name={name}
@@ -50,6 +49,7 @@ export const SelectField: FC<SelectFieldProps> = ({
           helperText={(error[name] && error[name]?.message) || helperText}
           onChange={(newValue) => onChange(newValue)}
           variant="outlined"
+          SelectProps={{ native: true }}
           sx={{ my: "0.7rem" }}
         >
           <option aria-label="None" value="" />
