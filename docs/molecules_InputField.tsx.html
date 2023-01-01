@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Header.html">Header</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
                 
             </nav>
         </div>
@@ -89,46 +89,34 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC, InputHTMLAttributes } from "react";
+            <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
 import * as hookForm from "react-hook-form";
 import { InputAdornment } from "@mui/material";
-import { TextField } from "molecules/textField.style";
-
-type InputFieldProps = {
-  control: hookForm.Control&lt;any> | undefined;
-  error: hookForm.FieldErrors;
-  name: string;
-  label: string;
-  placeholder?: string;
-  disabled?: boolean;
-  helperText?: any;
-  icon?: JSX.Element;
-  type?: InputHTMLAttributes&lt;unknown>["type"];
-};
+import { TextField } from "utils/textField.style";
+import { InputFieldProps } from "../utils/types";
 
 /**
- *
  * Generic text field used to enter the form
  * @param {hookForm.FieldErrors} error
  * @param {string} name
  * @param {string} label
  * @param {string} placeholder
  * @param {boolean} disabled
- * @param {InputHTMLAttributes&lt;unknown>["type"]} type
+ * @param {React.InputHTMLAttributes} type
  * @param {JSX.Element} icon
  * @param {hookForm.Control&lt;any> | undefined} control
  * @param {any} helperText
  */
 export const InputField: FC&lt;InputFieldProps> = ({
-  control,
-  error,
-  name,
-  label,
-  placeholder,
+  control, //
+  error, //
+  name, //
+  label, //
+  placeholder, //
   disabled,
   type,
   icon,
-  helperText,
+  helperText, //
 }: InputFieldProps) => {
   return (
     &lt;hookForm.Controller
@@ -147,7 +135,6 @@ export const InputField: FC&lt;InputFieldProps> = ({
           placeholder={placeholder}
           helperText={(error[name] &amp;&amp; error[name]?.message) || helperText}
           onChange={(value1) => onChange(value1)}
-          sx={{ my: "0.7rem" }}
           InputProps={{
             endAdornment: &lt;InputAdornment position="end">{icon}&lt;/InputAdornment>,
           }}

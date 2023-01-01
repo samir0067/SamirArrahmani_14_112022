@@ -1,23 +1,24 @@
-import React, { FC, InputHTMLAttributes } from "react";
+import React, { FC } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
 import { TextField } from "utils/textField.style";
 import * as hookForm from "react-hook-form";
 import { InputAdornment } from "@mui/material";
+import { InputFieldProps } from "../utils/types";
 
-type DateFieldProps = {
-  control: hookForm.Control<any> | undefined;
-  error: hookForm.FieldErrors;
-  name: string;
-  label: string;
-  placeholder?: string;
-  disabled?: boolean;
-  helperText?: any;
-  icon?: JSX.Element;
-  type?: InputHTMLAttributes<unknown>["type"];
-};
-
-export const DateField: FC<DateFieldProps> = ({
+/**
+ * Generic Date piker field used to enter the form
+ * @param {hookForm.FieldErrors} error
+ * @param {string} name
+ * @param {string} label
+ * @param {string} placeholder
+ * @param {boolean} disabled
+ * @param {React.InputHTMLAttributes} type
+ * @param {JSX.Element} icon
+ * @param {hookForm.Control<any> | undefined} control
+ * @param {any} helperText
+ */
+export const DateField: FC<InputFieldProps> = ({
   control,
   error,
   name,
@@ -27,7 +28,7 @@ export const DateField: FC<DateFieldProps> = ({
   type,
   icon,
   helperText,
-}: DateFieldProps) => {
+}: InputFieldProps) => {
   return (
     <hookForm.Controller
       name={name}

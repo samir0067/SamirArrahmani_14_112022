@@ -18,7 +18,7 @@ type TitleProps = {
  * @param {VariantTypo} variant
  * @param {string} title
  * @param {SxProps} sx
- * @param {right | left | up | down} slideDirection
+ * @param {"left" | "right" | "up" | "down"} slideDirection
  */
 export const Title: FC<TitleProps> = ({ component, variant, title, sx, slideDirection }: TitleProps) => {
   return (

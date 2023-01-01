@@ -14,7 +14,6 @@ type HeaderProps = {
  * @param {string} srcImg
  * @param {string} altImg
  * @param {SxProps} sx
- * @constructor
  */
 export const Header: FC<HeaderProps> = ({ srcImg, sx, altImg }) => {
   const { downSm } = useBreakpoints();

@@ -1,37 +1,29 @@
 import React, { FC } from "react";
 import * as hookForm from "react-hook-form";
-import { FieldErrors } from "react-hook-form";
 import { TextField } from "utils/textField.style";
-
-export type SelectFieldProps = {
-  options: { key: string | number; label: string }[];
-  control: hookForm.Control<any>;
-  error: FieldErrors;
-  name: string;
-  label: string;
-  placeholder?: string;
-  helperText?: any;
-};
+import { InputFieldProps, SelectProps } from "../utils/types";
 
 /**
  * Generic select field used to enter the form
  * @param {hookForm.Control<any> | undefined} control
  * @param helperText
- * @param {FieldErrors} error
+ * @param {hookForm.FieldErrors} error
  * @param {string} name
  * @param {string} label
+ * @param {boolean} disabled
  * @param {string} placeholder
- * @param {{ key: string | number; label: string }[]} options
+ * @param {Object[]} options
  */
-export const SelectField: FC<SelectFieldProps> = ({
+export const SelectField: FC<InputFieldProps & SelectProps> = ({
   control,
   helperText,
   error,
   name,
   label,
   placeholder,
+  disabled,
   options,
-}: SelectFieldProps) => {
+}: InputFieldProps & SelectProps) => {
   return (
     <hookForm.Controller
       name={name}
@@ -41,6 +33,7 @@ export const SelectField: FC<SelectFieldProps> = ({
         <TextField
           select
           inputRef={ref}
+          disabled={disabled}
           placeholder={placeholder}
           value={value}
           label={label}

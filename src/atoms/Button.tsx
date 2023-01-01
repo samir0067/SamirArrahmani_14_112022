@@ -9,7 +9,6 @@ type ButtonProps = {
   icon?: ReactNode;
   sx?: SxProps;
   color?: string;
-  margin?: string;
   disabled?: boolean;
   size?: "medium" | "small" | "large";
   variant?: "text" | "contained" | "outlined";
@@ -22,13 +21,12 @@ type ButtonProps = {
  * Generic button used for form validation
  * @param {string} label
  * @param {function} onClick
- * @param {text | contained | outlined} variant
  * @param {ReactNode} icon
  * @param {SxProps} sx
- * @param {string} margin
- * @param {medium | small | large} size
- * @param {boolean} disabled
  * @param {string} color
+ * @param {boolean} disabled
+ * @param {"small" | "medium" | "large"} size
+ * @param {text | contained | outlined} variant
  * @param {string} backgroundColor
  * @param {string} backgroundColorHover
  * @param {string} borderColor
@@ -39,7 +37,6 @@ export const Button: FC<ButtonProps> = ({
   variant,
   icon,
   sx,
-  margin,
   size,
   disabled,
   color,
@@ -56,7 +53,7 @@ export const Button: FC<ButtonProps> = ({
       disabled={disabled}
       sx={{
         ...sx,
-        margin: margin,
+        margin: "10px 0",
         padding: "7px 23px",
         borderRadius: "9px",
         fontFamily: "Roboto",

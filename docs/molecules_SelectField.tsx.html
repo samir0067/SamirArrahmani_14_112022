@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Header.html">Header</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
                 
             </nav>
         </div>
@@ -91,38 +91,30 @@
         <article>
             <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
 import * as hookForm from "react-hook-form";
-import { FieldErrors } from "react-hook-form";
-import { TextField } from "molecules/textField.style";
-
-export type SelectFieldProps = {
-  options: { key: string | number; label: string }[];
-  control: hookForm.Control&lt;any> | undefined;
-  error: FieldErrors;
-  name: string;
-  label: string;
-  placeholder?: string;
-  helperText?: any;
-};
+import { TextField } from "utils/textField.style";
+import { InputFieldProps, SelectProps } from "../utils/types";
 
 /**
  * Generic select field used to enter the form
  * @param {hookForm.Control&lt;any> | undefined} control
  * @param helperText
- * @param {FieldErrors} error
+ * @param {hookForm.FieldErrors} error
  * @param {string} name
  * @param {string} label
+ * @param {boolean} disabled
  * @param {string} placeholder
- * @param {{ key: string | number; label: string }[]} options
+ * @param {Object[]} options
  */
-export const SelectField: FC&lt;SelectFieldProps> = ({
+export const SelectField: FC&lt;InputFieldProps &amp; SelectProps> = ({
   control,
   helperText,
   error,
   name,
   label,
   placeholder,
+  disabled,
   options,
-}: SelectFieldProps) => {
+}: InputFieldProps &amp; SelectProps) => {
   return (
     &lt;hookForm.Controller
       name={name}
@@ -132,6 +124,7 @@ export const SelectField: FC&lt;SelectFieldProps> = ({
         &lt;TextField
           select
           inputRef={ref}
+          disabled={disabled}
           placeholder={placeholder}
           value={value}
           label={label}
@@ -140,7 +133,7 @@ export const SelectField: FC&lt;SelectFieldProps> = ({
           helperText={(error[name] &amp;&amp; error[name]?.message) || helperText}
           onChange={(newValue) => onChange(newValue)}
           variant="outlined"
-          sx={{ my: "0.7rem" }}
+          SelectProps={{ native: true }}
         >
           &lt;option aria-label="None" value="" />
           {options.map((option) => (

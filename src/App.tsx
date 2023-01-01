@@ -24,7 +24,7 @@ const App: FC = () => {
   console.log("employee ==>", employee);
 
   const {
-    reset,
+    // reset,
     control,
     handleSubmit,
     formState: { errors },
@@ -34,10 +34,10 @@ const App: FC = () => {
     shouldFocusError: false,
   });
 
-  const handleEmployee = (data) => {
-    const body = { ...data };
-    setEmployee(body);
-    reset({} as Employee);
+  const handleEmployee = (data: Employee) => {
+    setEmployee({ ...data });
+    setOpenModal(true);
+    // reset({} as Employee);
   };
 
   return (
@@ -74,7 +74,6 @@ const App: FC = () => {
             <SelectField name="state" control={control} error={errors} label="State" options={STATES} />
             <SelectField name="department" control={control} error={errors} label="Department" options={DEPARTMENT} />
             <Button label="Save" onClick={handleSubmit(handleEmployee)} icon={<HowToRegIcon />} />
-            <Button label="Open modal" onClick={() => setOpenModal(true)} />
           </Box>
         </Paper>
       </Container>
