@@ -50,7 +50,7 @@ const App: FC = () => {
       />
       <Container maxWidth="lg">
         <Header srcImg={LOGO} altImg="Logo wealth health" />
-        <Paper elevation={5} sx={{ height: "100vh", width: "100%", padding: "24px" }}>
+        <Paper elevation={5} sx={{ marginY: "24px", width: "100%", padding: "24px" }}>
           <Box component="form">
             <InputField name="firstName" control={control} error={errors} label="First Name" />
             <InputField name="lastName" control={control} error={errors} label="Last Name" />
