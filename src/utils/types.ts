@@ -1,3 +1,6 @@
+import * as hookForm from "react-hook-form";
+import { InputHTMLAttributes } from "react";
+
 export type VariantTypo =
   | "body1"
   | "body2"
@@ -13,6 +16,22 @@ export type VariantTypo =
   | "overline"
   | "subtitle1"
   | "subtitle2";
+
+export type InputFieldProps = {
+  control: hookForm.Control<any> | undefined;
+  error: hookForm.FieldErrors;
+  name: string;
+  label: string;
+  placeholder?: string;
+  disabled?: boolean;
+  helperText?: any;
+  icon?: JSX.Element;
+  type?: InputHTMLAttributes<unknown>["type"];
+};
+
+export type SelectProps = {
+  options: { key: string; label: string }[];
+};
 
 export type Address = {
   street: string;
