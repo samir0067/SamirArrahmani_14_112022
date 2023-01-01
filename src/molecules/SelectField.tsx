@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import * as hookForm from "react-hook-form";
 import { FieldErrors } from "react-hook-form";
-import { TextField } from "molecules/textField.style";
+import { TextField } from "utils/textField.style";
 
 export type SelectFieldProps = {
   options: { key: string | number; label: string }[];
-  control: hookForm.Control<any> | undefined;
+  control: hookForm.Control<any>;
   error: FieldErrors;
   name: string;
   label: string;
@@ -50,7 +50,6 @@ export const SelectField: FC<SelectFieldProps> = ({
           onChange={(newValue) => onChange(newValue)}
           variant="outlined"
           SelectProps={{ native: true }}
-          sx={{ my: "0.7rem" }}
         >
           <option aria-label="None" value="" />
           {options.map((option) => (

@@ -1,7 +1,7 @@
 import React, { FC, InputHTMLAttributes } from "react";
 import * as hookForm from "react-hook-form";
 import { InputAdornment } from "@mui/material";
-import { TextField } from "molecules/textField.style";
+import { TextField } from "utils/textField.style";
 
 type InputFieldProps = {
   control: hookForm.Control<any> | undefined;
@@ -56,7 +56,6 @@ export const InputField: FC<InputFieldProps> = ({
           placeholder={placeholder}
           helperText={(error[name] && error[name]?.message) || helperText}
           onChange={(value1) => onChange(value1)}
-          sx={{ my: "0.7rem" }}
           InputProps={{
             endAdornment: <InputAdornment position="end">{icon}</InputAdornment>,
           }}

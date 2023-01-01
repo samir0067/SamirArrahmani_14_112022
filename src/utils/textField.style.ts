@@ -7,6 +7,7 @@ import { colors } from "utils/constants";
  */
 export const TextField = styled(MuiTextField)(() => ({
   width: "100%",
+  margin: "10px 0",
   "& .MuiOutlinedInput-root": {
     backgroundColor: colors.white,
     borderRadius: "9px",
