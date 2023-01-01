@@ -73,5 +73,5 @@ Button.defaultProps = {
   variant: "contained",
   color: colors.white,
   backgroundColor: colors.primary,
-  backgroundColorHover: colors.tertiary,
+  backgroundColorHover: colors.secondary,
 };

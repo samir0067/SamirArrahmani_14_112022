@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/Header.tsx</title>
+  <title> molecules/Footer.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/Header.tsx</h1>
+                    <h1>molecules/Footer.tsx</h1>
                 </header>
                 
 
@@ -89,38 +89,42 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
-import { Title } from "../atoms/Title";
-import useBreakpoints from "../utils/hooks/useBreakpoints";
-import { Box, SxProps } from "@mui/material";
-
-type HeaderProps = {
-  title: string;
-  srcImg: string;
-  altImg: string;
-  sx?: SxProps;
-};
+            <pre class="prettyprint source linenums"><code>import React, { FC, useState } from "react";
+import { BottomNavigation, BottomNavigationAction, Box, Typography } from "@mui/material";
+import { colors } from "utils/constants";
+import AddIcon from "@mui/icons-material/Add";
+import ListIcon from "@mui/icons-material/List";
 
 /**
- * Header component of the application
- * @param {string} title
- * @param {string} srcImg
- * @param {string} altImg
- * @param {SxProps} sx
+ * Footer component with navigation link
  */
-export const Header: FC&lt;HeaderProps> = ({ title, srcImg, sx, altImg }) => {
-  const { downSm } = useBreakpoints();
+export const Footer: FC = () => {
+  const [value, setValue] = useState(0);
 
   return (
     &lt;Box
+      bgcolor={colors.secondary}
+      height="72px"
+      width="100%"
       display="flex"
-      flexDirection={downSm ? "column" : "row"}
+      justifyContent="space-around"
       alignItems="center"
-      justifyContent={downSm ? "center" : "space-between"}
-      sx={{ ...sx }}
+      position="fixed"
+      bottom={0}
+      zIndex={1.5}
     >
-      &lt;img height="auto" src={srcImg} alt={altImg} />
-      &lt;Title slideDirection="left" component="h2" variant={downSm ? "h5" : "h3"} title={title} />
+      &lt;Typography color={colors.white}>HRnet&lt;/Typography>
+      &lt;Box sx={{ minWidth: "288px" }}>
+        &lt;BottomNavigation
+          sx={{ backgroundColor: colors.secondary }}
+          showLabels
+          value={value}
+          onChange={(event, newValue) => setValue(newValue)}
+        >
+          &lt;BottomNavigationAction sx={{ color: colors.white }} label="Create Employee" icon={&lt;AddIcon />} />
+          &lt;BottomNavigationAction sx={{ color: colors.white }} label="Current Employees" icon={&lt;ListIcon />} />
+        &lt;/BottomNavigation>
+      &lt;/Box>
     &lt;/Box>
   );
 };

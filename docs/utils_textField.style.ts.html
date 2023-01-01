@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
                 
             </nav>
         </div>
@@ -99,6 +99,7 @@ import { colors } from "utils/constants";
 export const TextField = styled(MuiTextField)(() => ({
   width: "100%",
   margin: "10px 0",
+  zIndex: 0,
   "&amp; .MuiOutlinedInput-root": {
     backgroundColor: colors.white,
     borderRadius: "9px",
@@ -106,17 +107,17 @@ export const TextField = styled(MuiTextField)(() => ({
       borderColor: colors.primary,
     },
     "&amp;.Mui-focused fieldset": {
-      borderColor: colors.tertiary,
+      borderColor: colors.secondary,
     },
   },
   label: {
     color: colors.black,
   },
   "&amp; label.Mui-focused": {
-    color: colors.tertiary,
+    color: colors.secondary,
   },
   "&amp; .MuiInput-underline:after": {
-    borderColor: colors.tertiary,
+    borderColor: colors.secondary,
   },
 }));
 </code></pre>

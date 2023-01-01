@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/Header.tsx</title>
+  <title> pages/Home.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/Header.tsx</h1>
+                    <h1>pages/Home.tsx</h1>
                 </header>
                 
 
@@ -89,41 +89,89 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
-import { Title } from "../atoms/Title";
-import useBreakpoints from "../utils/hooks/useBreakpoints";
-import { Box, SxProps } from "@mui/material";
-
-type HeaderProps = {
-  title: string;
-  srcImg: string;
-  altImg: string;
-  sx?: SxProps;
-};
+            <pre class="prettyprint source linenums"><code>import React, { FC, useState } from "react";
+import Structure from "templates/Structure";
+import { Title } from "atoms/Title";
+import { Box, Paper } from "@mui/material";
+import { InputField } from "../molecules/InputField";
+import { DateField } from "../molecules/DateField";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { SelectField } from "../molecules/SelectField";
+import { DEPARTMENT, STATES } from "../utils/constants";
+import { Button } from "../atoms/Button";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import { useForm } from "react-hook-form";
+import { Employee } from "../utils/types";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+import { employeeSchema } from "../utils/validation";
 
 /**
- * Header component of the application
- * @param {string} title
- * @param {string} srcImg
- * @param {string} altImg
- * @param {SxProps} sx
+ * Home page with the add employee form
  */
-export const Header: FC&lt;HeaderProps> = ({ title, srcImg, sx, altImg }) => {
-  const { downSm } = useBreakpoints();
+const Home: FC = () => {
+  const [openModal, setOpenModal] = useState&lt;boolean>(false);
+
+  const [employee, setEmployee] = useState&lt;Employee>({} as Employee);
+
+  console.log("employee ==>", employee);
+
+  const {
+    // reset,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm&lt;Employee>({
+    resolver: yupResolver(employeeSchema),
+    reValidateMode: "onBlur",
+    shouldFocusError: false,
+  });
+
+  const handleEmployee = (data: Employee) => {
+    setEmployee({ ...data });
+    setOpenModal(true);
+    // reset({} as Employee);
+  };
 
   return (
-    &lt;Box
-      display="flex"
-      flexDirection={downSm ? "column" : "row"}
-      alignItems="center"
-      justifyContent={downSm ? "center" : "space-between"}
-      sx={{ ...sx }}
-    >
-      &lt;img height="auto" src={srcImg} alt={altImg} />
-      &lt;Title slideDirection="left" component="h2" variant={downSm ? "h5" : "h3"} title={title} />
-    &lt;/Box>
+    &lt;Structure
+      titleHeader="Create Employee"
+      openModal={openModal}
+      setOpenModal={() => setOpenModal(false)}
+      titleModal={"Employee Created!"}
+      contentModal={&lt;Title component="p" variant="body1" title="Teste de la modal" />}
+      main={
+        &lt;Paper elevation={5} sx={{ marginBottom: "96px", width: "100%", padding: "24px" }}>
+          &lt;Box component="form">
+            &lt;InputField name="firstName" control={control} error={errors} label="First Name" />
+            &lt;InputField name="lastName" control={control} error={errors} label="Last Name" />
+            &lt;DateField
+              name="birthDate"
+              control={control}
+              error={errors}
+              label="Date of Birth"
+              icon={&lt;CalendarMonthIcon />}
+            />
+            &lt;DateField
+              name="startDate"
+              control={control}
+              error={errors}
+              label="Start date"
+              icon={&lt;CalendarMonthIcon />}
+            />
+            &lt;InputField name="street" control={control} error={errors} label="Street" />
+            &lt;InputField name="zipCode" type="number" control={control} error={errors} label="Zip Code" />
+            &lt;InputField name="city" control={control} error={errors} label="City" />
+            &lt;SelectField name="state" control={control} error={errors} label="State" options={STATES} />
+            &lt;SelectField name="department" control={control} error={errors} label="Department" options={DEPARTMENT} />
+            &lt;Button label="Save" onClick={handleSubmit(handleEmployee)} icon={&lt;HowToRegIcon />} />
+          &lt;/Box>
+        &lt;/Paper>
+      }
+    />
   );
 };
+
+export default Home;
 </code></pre>
         </article>
     </section>
