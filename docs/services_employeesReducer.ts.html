@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> pages/Home.tsx</title>
+  <title> services/employeesReducer.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>pages/Home.tsx</h1>
+                    <h1>services/employeesReducer.ts</h1>
                 </header>
                 
 
@@ -89,66 +89,31 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC, useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
-import { useDispatch } from "react-redux";
-import { Box, Grid } from "@mui/material";
-import { addNewEmployee } from "services/employeesReducer";
+            <pre class="prettyprint source linenums"><code>import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "services/storeConfig";
 import { Employee } from "utils/types";
-import { employeeSchema } from "utils/validation";
-import Structure from "templates/Structure";
-import ProfileForm from "organisms/ProfileForm";
-import AddressForm from "organisms/AddressForm";
-import DepartmentValidateForm from "organisms/DepartmentValidateForm";
-import Title from "atoms/Title";
 
 /**
- * Home page with the add employee form
+ * The initial state of the reducer is passed as first argument
  */
-const Home: FC = () => {
-  const [openModal, setOpenModal] = useState&lt;boolean>(false);
-  const dispatch = useDispatch();
+const employees: Employee[] = [];
 
-  const {
-    reset,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm&lt;Employee>({
-    resolver: yupResolver(employeeSchema),
-    reValidateMode: "onBlur",
-    shouldFocusError: false,
-  });
+/**
+ * A function utility to create actions for the given type
+ */
+export const addNewEmployee = createAction&lt;Employee[]>("addNewEmployee");
 
-  const handleEmployee = (data: Employee) => {
-    // employees.push(data);
-    dispatch(addNewEmployee([data]));
-    setOpenModal(true);
-    reset({} as Employee);
-  };
+/**
+ *  A function to define a reducer as a response between a type of action
+ */
+const employeesReducer = createReducer(employees, (builder) =>
+  builder.addCase(addNewEmployee, (state, action: PayloadAction&lt;Employee[]>) => {
+    state.push(...action.payload);
+  }),
+);
 
-  return (
-    &lt;Structure
-      titleHeader="Create Employee"
-      openModal={openModal}
-      setOpenModal={() => setOpenModal(false)}
-      titleModal={"Employee Created!"}
-      contentModal={&lt;Title component="p" variant="body1" title="Teste de la modal" />}
-      main={
-        &lt;Box component="form">
-          &lt;Grid container rowSpacing={{ xs: 1, md: 3 }} columnSpacing={{ xs: 1, md: 3 }}>
-            &lt;ProfileForm control={control} error={errors} />
-            &lt;AddressForm control={control} error={errors} />
-            &lt;DepartmentValidateForm control={control} error={errors} onClick={handleSubmit(handleEmployee)} />
-          &lt;/Grid>
-        &lt;/Box>
-      }
-    />
-  );
-};
-
-export default Home;
+export const selectEmployees = (state: RootState) => state.employees;
+export default employeesReducer;
 </code></pre>
         </article>
     </section>

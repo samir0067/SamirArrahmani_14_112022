@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
 import { selectEmployees } from "services/employeesReducer";
 import Structure from "templates/Structure";
-import { Title } from "atoms/Title";
+import Title from "atoms/Title";
 
 const Employees = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);

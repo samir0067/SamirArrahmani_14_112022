@@ -110,7 +110,7 @@ type TitleProps = {
  * @param {SxProps} sx
  * @param {"left" | "right" | "up" | "down"} slideDirection
  */
-export const Title: FC&lt;TitleProps> = ({ component, variant, title, sx, slideDirection }: TitleProps) => {
+const Title: FC&lt;TitleProps> = ({ component, variant, title, sx, slideDirection }: TitleProps) => {
   return (
     &lt;Slide direction={slideDirection} in={true} mountOnEnter unmountOnExit timeout={400}>
       &lt;Typography
@@ -126,6 +126,8 @@ export const Title: FC&lt;TitleProps> = ({ component, variant, title, sx, slideD
     &lt;/Slide>
   );
 };
+
+export default Title;
 </code></pre>
         </article>
     </section>

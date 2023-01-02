@@ -10,7 +10,7 @@ import Structure from "templates/Structure";
 import ProfileForm from "organisms/ProfileForm";
 import AddressForm from "organisms/AddressForm";
 import DepartmentValidateForm from "organisms/DepartmentValidateForm";
-import { Title } from "atoms/Title";
+import Title from "atoms/Title";
 
 /**
  * Home page with the add employee form

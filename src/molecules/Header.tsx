@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Title } from "../atoms/Title";
+import Title from "atoms/Title";
 import useBreakpoints from "../utils/hooks/useBreakpoints";
 import { Box, SxProps } from "@mui/material";
 
