@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#AddressForm">AddressForm</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#createEmployee">createEmployee</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#DepartmentValidateForm">DepartmentValidateForm</a></li><li><a href="global.html#employee">employee</a></li><li><a href="global.html#employeeReducer">employeeReducer</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#storeConfig">storeConfig</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
                 
             </nav>
         </div>
@@ -116,11 +116,11 @@ export const Header: FC&lt;HeaderProps> = ({ title, srcImg, sx, altImg }) => {
       display="flex"
       flexDirection={downSm ? "column" : "row"}
       alignItems="center"
-      justifyContent={downSm ? "center" : "space-between"}
+      justifyContent={downSm ? "center" : "space-around"}
       sx={{ ...sx }}
     >
-      &lt;img height="auto" src={srcImg} alt={altImg} />
-      &lt;Title slideDirection="left" component="h2" variant={downSm ? "h5" : "h3"} title={title} />
+      &lt;img width="150px" height="auto" src={srcImg} alt={altImg} />
+      &lt;Title slideDirection="down" component="h2" variant={downSm ? "h5" : "h3"} title={title} />
     &lt;/Box>
   );
 };

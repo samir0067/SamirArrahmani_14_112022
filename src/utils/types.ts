@@ -43,8 +43,8 @@ export type Address = {
 export type Employee = {
   firstName: string;
   lastName: string;
-  birthDate?: string;
-  startDate?: string;
+  birthDate: string;
+  startDate: string;
   address: Address;
-  department?: string;
+  department: string;
 };

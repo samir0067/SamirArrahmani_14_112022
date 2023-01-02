@@ -7,7 +7,6 @@ type TitleProps = {
   title: string;
   variant: VariantTypo;
   component: ElementType;
-  writerEffect?: JSX.Element;
   sx?: SxProps<Theme>;
   slideDirection?: "right" | "left" | "up" | "down";
 };

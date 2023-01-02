@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#AddressForm">AddressForm</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#createEmployee">createEmployee</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#DepartmentValidateForm">DepartmentValidateForm</a></li><li><a href="global.html#employee">employee</a></li><li><a href="global.html#employeeReducer">employeeReducer</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#storeConfig">storeConfig</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
                 
             </nav>
         </div>
@@ -92,31 +92,26 @@
             <pre class="prettyprint source linenums"><code>import React, { FC, useState } from "react";
 import Structure from "templates/Structure";
 import { Title } from "atoms/Title";
-import { Box, Paper } from "@mui/material";
-import { InputField } from "../molecules/InputField";
-import { DateField } from "../molecules/DateField";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { SelectField } from "../molecules/SelectField";
-import { DEPARTMENT, STATES } from "../utils/constants";
-import { Button } from "../atoms/Button";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { useForm } from "react-hook-form";
 import { Employee } from "../utils/types";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { employeeSchema } from "../utils/validation";
+import ProfileForm from "../organisms/ProfileForm";
+import AddressForm from "../organisms/AddressForm";
+import { Box, Grid } from "@mui/material";
+import DepartmentValidateForm from "../organisms/DepartmentValidateForm";
 
 /**
  * Home page with the add employee form
  */
 const Home: FC = () => {
   const [openModal, setOpenModal] = useState&lt;boolean>(false);
-
   const [employee, setEmployee] = useState&lt;Employee>({} as Employee);
 
   console.log("employee ==>", employee);
 
   const {
-    // reset,
+    reset,
     control,
     handleSubmit,
     formState: { errors },
@@ -129,7 +124,7 @@ const Home: FC = () => {
   const handleEmployee = (data: Employee) => {
     setEmployee({ ...data });
     setOpenModal(true);
-    // reset({} as Employee);
+    reset({} as Employee);
   };
 
   return (
@@ -140,32 +135,13 @@ const Home: FC = () => {
       titleModal={"Employee Created!"}
       contentModal={&lt;Title component="p" variant="body1" title="Teste de la modal" />}
       main={
-        &lt;Paper elevation={5} sx={{ marginBottom: "96px", width: "100%", padding: "24px" }}>
-          &lt;Box component="form">
-            &lt;InputField name="firstName" control={control} error={errors} label="First Name" />
-            &lt;InputField name="lastName" control={control} error={errors} label="Last Name" />
-            &lt;DateField
-              name="birthDate"
-              control={control}
-              error={errors}
-              label="Date of Birth"
-              icon={&lt;CalendarMonthIcon />}
-            />
-            &lt;DateField
-              name="startDate"
-              control={control}
-              error={errors}
-              label="Start date"
-              icon={&lt;CalendarMonthIcon />}
-            />
-            &lt;InputField name="street" control={control} error={errors} label="Street" />
-            &lt;InputField name="zipCode" type="number" control={control} error={errors} label="Zip Code" />
-            &lt;InputField name="city" control={control} error={errors} label="City" />
-            &lt;SelectField name="state" control={control} error={errors} label="State" options={STATES} />
-            &lt;SelectField name="department" control={control} error={errors} label="Department" options={DEPARTMENT} />
-            &lt;Button label="Save" onClick={handleSubmit(handleEmployee)} icon={&lt;HowToRegIcon />} />
-          &lt;/Box>
-        &lt;/Paper>
+        &lt;Box component="form">
+          &lt;Grid container rowSpacing={{ xs: 1, md: 3 }} columnSpacing={{ xs: 1, md: 3 }}>
+            &lt;ProfileForm control={control} error={errors} />
+            &lt;AddressForm control={control} error={errors} />
+            &lt;DepartmentValidateForm control={control} error={errors} onClick={handleSubmit(handleEmployee)} />
+          &lt;/Grid>
+        &lt;/Box>
       }
     />
   );

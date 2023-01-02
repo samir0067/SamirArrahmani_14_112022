@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> utils/hooks/useBreakpoints.ts</title>
+  <title> organisms/DepartmentValidateForm.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>utils/hooks/useBreakpoints.ts</h1>
+                    <h1>organisms/DepartmentValidateForm.tsx</h1>
                 </header>
                 
 
@@ -89,36 +89,54 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+            <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
+import { Grid, Paper } from "@mui/material";
+import { SelectField } from "../molecules/SelectField";
+import { DEPARTMENT } from "../utils/constants";
+import { Employee } from "../utils/types";
+import { Control, FieldErrors } from "react-hook-form";
+import { Button } from "../atoms/Button";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import useBreakpoints from "../utils/hooks/useBreakpoints";
 
-/**
- * Hook to manage screen size with Breakpoint
- */
-const useBreakpoints = () => {
-  const theme = useTheme();
-
-  const upXs = useMediaQuery(theme.breakpoints.up("xs"));
-
-  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const downMd = useMediaQuery(theme.breakpoints.down("md"));
-
-  const downLg = useMediaQuery(theme.breakpoints.down("lg"));
-
-  const upLg = useMediaQuery(theme.breakpoints.up("lg"));
-
-  return { upXs, downSm, downMd, downLg, upLg };
+type DepartmentValidateFormProps = {
+  control: Control&lt;Employee>;
+  error: FieldErrors&lt;Employee>;
+  onClick: () => void;
 };
 
-export default useBreakpoints;
+/**
+ * Functional component of an organization of information fields on the department and the validation of the form
+ * @param {Control&lt;Employee>} control
+ * @param {FieldErrors&lt;Employee>} error
+ * @param {function} onClick
+ */
+const DepartmentValidateForm: FC&lt;DepartmentValidateFormProps> = ({
+  control,
+  error,
+  onClick,
+}: DepartmentValidateFormProps) => {
+  const { downSm } = useBreakpoints();
 
-// TEMPORARY
-//``xs, extra-petit : 0px``
-// ``sm, petit : 600px``
-// ``md, moyen : 900px``
-// ``lg, grand : 1 200 pixels``
-// ``xl, extra-large : 1536px``
+  return (
+    &lt;Grid item xs>
+      &lt;Paper
+        elevation={5}
+        sx={{
+          padding: "12px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: downSm ? "center" : "start",
+        }}
+      >
+        &lt;SelectField name="department" control={control} error={error} label="Department" options={DEPARTMENT} />
+        &lt;Button label="Save" onClick={onClick} icon={&lt;HowToRegIcon />} />
+      &lt;/Paper>
+    &lt;/Grid>
+  );
+};
+
+export default DepartmentValidateForm;
 </code></pre>
         </article>
     </section>

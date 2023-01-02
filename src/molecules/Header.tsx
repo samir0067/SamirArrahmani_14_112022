@@ -25,11 +25,11 @@ export const Header: FC<HeaderProps> = ({ title, srcImg, sx, altImg }) => {
       display="flex"
       flexDirection={downSm ? "column" : "row"}
       alignItems="center"
-      justifyContent={downSm ? "center" : "space-between"}
+      justifyContent={downSm ? "center" : "space-around"}
       sx={{ ...sx }}
     >
-      <img height="auto" src={srcImg} alt={altImg} />
-      <Title slideDirection="left" component="h2" variant={downSm ? "h5" : "h3"} title={title} />
+      <img width="150px" height="auto" src={srcImg} alt={altImg} />
+      <Title slideDirection="down" component="h2" variant={downSm ? "h5" : "h3"} title={title} />
     </Box>
   );
 };

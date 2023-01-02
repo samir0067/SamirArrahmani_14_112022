@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> utils/hooks/useBreakpoints.ts</title>
+  <title> services/storeConfig.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>utils/hooks/useBreakpoints.ts</h1>
+                    <h1>services/storeConfig.ts</h1>
                 </header>
                 
 
@@ -89,36 +89,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+            <pre class="prettyprint source linenums"><code>import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+import { combineReducers } from "redux";
+import employee from "./employeeReducer";
 
 /**
- * Hook to manage screen size with Breakpoint
+ * the root of the reducers combined
  */
-const useBreakpoints = () => {
-  const theme = useTheme();
+const storeConfig = configureStore({
+  reducer: combineReducers({
+    employee,
+  }),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(logger),
+});
 
-  const upXs = useMediaQuery(theme.breakpoints.up("xs"));
-
-  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const downMd = useMediaQuery(theme.breakpoints.down("md"));
-
-  const downLg = useMediaQuery(theme.breakpoints.down("lg"));
-
-  const upLg = useMediaQuery(theme.breakpoints.up("lg"));
-
-  return { upXs, downSm, downMd, downLg, upLg };
-};
-
-export default useBreakpoints;
-
-// TEMPORARY
-//``xs, extra-petit : 0px``
-// ``sm, petit : 600px``
-// ``md, moyen : 900px``
-// ``lg, grand : 1 200 pixels``
-// ``xl, extra-large : 1536px``
+export type RootState = ReturnType&lt;typeof storeConfig.getState>;
+export default storeConfig;
 </code></pre>
         </article>
     </section>

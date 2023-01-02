@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> utils/hooks/useBreakpoints.ts</title>
+  <title> pages/NotFound.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>utils/hooks/useBreakpoints.ts</h1>
+                    <h1>pages/NotFound.tsx</h1>
                 </header>
                 
 
@@ -89,36 +89,29 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+            <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "atoms/Button";
+import { Box, Typography } from "@mui/material";
 
 /**
- * Hook to manage screen size with Breakpoint
+ * functional component for the page note found
  */
-const useBreakpoints = () => {
-  const theme = useTheme();
+const NotFound: FC = () => {
+  const navigate = useNavigate();
 
-  const upXs = useMediaQuery(theme.breakpoints.up("xs"));
-
-  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const downMd = useMediaQuery(theme.breakpoints.down("md"));
-
-  const downLg = useMediaQuery(theme.breakpoints.down("lg"));
-
-  const upLg = useMediaQuery(theme.breakpoints.up("lg"));
-
-  return { upXs, downSm, downMd, downLg, upLg };
+  return (
+    &lt;main>
+      &lt;Box>
+        &lt;Typography variant="h1">404&lt;/Typography>
+        &lt;Typography variant="body1">Oops! the page you asked for does not exist.&lt;/Typography>
+        &lt;Button label="Return to the home page" onClick={() => navigate("/")} />
+      &lt;/Box>
+    &lt;/main>
+  );
 };
 
-export default useBreakpoints;
-
-// TEMPORARY
-//``xs, extra-petit : 0px``
-// ``sm, petit : 600px``
-// ``md, moyen : 900px``
-// ``lg, grand : 1 200 pixels``
-// ``xl, extra-large : 1536px``
+export default NotFound;
 </code></pre>
         </article>
     </section>

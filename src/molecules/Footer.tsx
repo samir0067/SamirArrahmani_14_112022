@@ -1,14 +1,19 @@
-import React, { FC, useState } from "react";
-import { BottomNavigation, BottomNavigationAction, Box, Typography } from "@mui/material";
+import React, { FC } from "react";
+import { Box, Typography } from "@mui/material";
 import { colors } from "utils/constants";
 import AddIcon from "@mui/icons-material/Add";
 import ListIcon from "@mui/icons-material/List";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "atoms/Button";
+import useBreakpoints from "utils/hooks/useBreakpoints";
 
 /**
  * Footer component with navigation link
  */
 export const Footer: FC = () => {
-  const [value, setValue] = useState(0);
+  const { downSm } = useBreakpoints();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -16,23 +21,36 @@ export const Footer: FC = () => {
       height="72px"
       width="100%"
       display="flex"
-      justifyContent="space-around"
+      justifyContent={downSm ? "center" : "space-around"}
       alignItems="center"
       position="fixed"
       bottom={0}
       zIndex={1.5}
     >
-      <Typography color={colors.white}>HRnet</Typography>
-      <Box sx={{ minWidth: "288px" }}>
-        <BottomNavigation
-          sx={{ backgroundColor: colors.secondary }}
-          showLabels
-          value={value}
-          onChange={(event, newValue) => setValue(newValue)}
-        >
-          <BottomNavigationAction sx={{ color: colors.white }} label="Create Employee" icon={<AddIcon />} />
-          <BottomNavigationAction sx={{ color: colors.white }} label="Current Employees" icon={<ListIcon />} />
-        </BottomNavigation>
+      <Typography variant="h5" color={colors.white}>
+        HRnet
+      </Typography>
+      <Box maxWidth="224px">
+        <Button
+          label="Create Employee"
+          margin="0"
+          padding="5px 10px"
+          size={location.pathname === "/" ? "large" : "small"}
+          variant="text"
+          sx={{ height: "35px" }}
+          onClick={() => navigate("/")}
+          icon={<AddIcon />}
+        />
+        <Button
+          label="Current Employees"
+          margin="0"
+          padding="5px 10px"
+          size={location.pathname === "/employees" ? "large" : "small"}
+          sx={{ height: "35px" }}
+          variant="text"
+          onClick={() => navigate("/employees")}
+          icon={<ListIcon />}
+        />
       </Box>
     </Box>
   );

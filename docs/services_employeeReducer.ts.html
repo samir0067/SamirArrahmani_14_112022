@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> utils/hooks/useBreakpoints.ts</title>
+  <title> services/employeeReducer.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>utils/hooks/useBreakpoints.ts</h1>
+                    <h1>services/employeeReducer.ts</h1>
                 </header>
                 
 
@@ -89,36 +89,56 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+            <pre class="prettyprint source linenums"><code>import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "services/storeConfig";
+import { Employee } from "utils/types";
 
 /**
- * Hook to manage screen size with Breakpoint
+ * The initial state of the reducer is passed as first argument
  */
-const useBreakpoints = () => {
-  const theme = useTheme();
-
-  const upXs = useMediaQuery(theme.breakpoints.up("xs"));
-
-  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const downMd = useMediaQuery(theme.breakpoints.down("md"));
-
-  const downLg = useMediaQuery(theme.breakpoints.down("lg"));
-
-  const upLg = useMediaQuery(theme.breakpoints.up("lg"));
-
-  return { upXs, downSm, downMd, downLg, upLg };
+const employee: Employee = {
+  firstName: "",
+  lastName: "",
+  birthDate: "",
+  startDate: "",
+  address: {
+    street: "",
+    zipCode: parseInt(""),
+    city: "",
+    state: "",
+  },
+  department: "",
 };
 
-export default useBreakpoints;
+/**
+ * A function utility to create actions for the given type
+ */
+export const createEmployee = createAction&lt;Employee>("createEmployee");
 
-// TEMPORARY
-//``xs, extra-petit : 0px``
-// ``sm, petit : 600px``
-// ``md, moyen : 900px``
-// ``lg, grand : 1 200 pixels``
-// ``xl, extra-large : 1536px``
+/**
+ *  A function to define a reducer as a response between a type of action
+ */
+const employeeReducer = createReducer(employee, (builder) =>
+  builder.addCase(createEmployee, (state, action: PayloadAction&lt;Employee>) => {
+    return {
+      ...state,
+      firstName: action.payload.firstName,
+      lastName: action.payload.lastName,
+      birthDate: action.payload.birthDate,
+      startDate: action.payload.startDate,
+      department: action.payload.department,
+      address: {
+        street: action.payload.address.street,
+        zipCode: action.payload.address.zipCode,
+        city: action.payload.address.city,
+        state: action.payload.address.state,
+      },
+    };
+  }),
+);
+
+export const selectEmployee = (state: RootState) => state.employee;
+export default employeeReducer;
 </code></pre>
         </article>
     </section>

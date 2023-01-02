@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> utils/hooks/useBreakpoints.ts</title>
+  <title> organisms/ProfileForm.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>utils/hooks/useBreakpoints.ts</h1>
+                    <h1>organisms/ProfileForm.tsx</h1>
                 </header>
                 
 
@@ -89,36 +89,44 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+            <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
+import { Grid, Paper } from "@mui/material";
+import { InputField } from "../molecules/InputField";
+import { DateField } from "../molecules/DateField";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { Employee } from "../utils/types";
+import { Control, FieldErrors } from "react-hook-form";
 
-/**
- * Hook to manage screen size with Breakpoint
- */
-const useBreakpoints = () => {
-  const theme = useTheme();
-
-  const upXs = useMediaQuery(theme.breakpoints.up("xs"));
-
-  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const downMd = useMediaQuery(theme.breakpoints.down("md"));
-
-  const downLg = useMediaQuery(theme.breakpoints.down("lg"));
-
-  const upLg = useMediaQuery(theme.breakpoints.up("lg"));
-
-  return { upXs, downSm, downMd, downLg, upLg };
+type ProfilFormProps = {
+  control: Control&lt;Employee>;
+  error: FieldErrors&lt;Employee>;
 };
 
-export default useBreakpoints;
+/**
+ * Functional component of an organization of personal information fields
+ * @param {Control&lt;Employee>} control
+ * @param {FieldErrors&lt;Employee>} error
+ */
+const ProfileForm: FC&lt;ProfilFormProps> = ({ control, error }: ProfilFormProps) => {
+  return (
+    &lt;Grid item xs={12} sm={6}>
+      &lt;Paper elevation={5} sx={{ padding: "12px" }}>
+        &lt;InputField name="firstName" control={control} error={error} label="First Name" />
+        &lt;InputField name="lastName" control={control} error={error} label="Last Name" />
+        &lt;DateField
+          name="birthDate"
+          control={control}
+          error={error}
+          label="Date of Birth"
+          icon={&lt;CalendarMonthIcon />}
+        />
+        &lt;DateField name="startDate" control={control} error={error} label="Start date" icon={&lt;CalendarMonthIcon />} />
+      &lt;/Paper>
+    &lt;/Grid>
+  );
+};
 
-// TEMPORARY
-//``xs, extra-petit : 0px``
-// ``sm, petit : 600px``
-// ``md, moyen : 900px``
-// ``lg, grand : 1 200 pixels``
-// ``xl, extra-large : 1536px``
+export default ProfileForm;
 </code></pre>
         </article>
     </section>

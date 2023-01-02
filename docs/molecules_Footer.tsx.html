@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#AddressForm">AddressForm</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#createEmployee">createEmployee</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#DepartmentValidateForm">DepartmentValidateForm</a></li><li><a href="global.html#employee">employee</a></li><li><a href="global.html#employeeReducer">employeeReducer</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#storeConfig">storeConfig</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
                 
             </nav>
         </div>
@@ -89,17 +89,22 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC, useState } from "react";
-import { BottomNavigation, BottomNavigationAction, Box, Typography } from "@mui/material";
+            <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
+import { Box, Typography } from "@mui/material";
 import { colors } from "utils/constants";
 import AddIcon from "@mui/icons-material/Add";
 import ListIcon from "@mui/icons-material/List";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "atoms/Button";
+import useBreakpoints from "utils/hooks/useBreakpoints";
 
 /**
  * Footer component with navigation link
  */
 export const Footer: FC = () => {
-  const [value, setValue] = useState(0);
+  const { downSm } = useBreakpoints();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     &lt;Box
@@ -107,23 +112,36 @@ export const Footer: FC = () => {
       height="72px"
       width="100%"
       display="flex"
-      justifyContent="space-around"
+      justifyContent={downSm ? "center" : "space-around"}
       alignItems="center"
       position="fixed"
       bottom={0}
       zIndex={1.5}
     >
-      &lt;Typography color={colors.white}>HRnet&lt;/Typography>
-      &lt;Box sx={{ minWidth: "288px" }}>
-        &lt;BottomNavigation
-          sx={{ backgroundColor: colors.secondary }}
-          showLabels
-          value={value}
-          onChange={(event, newValue) => setValue(newValue)}
-        >
-          &lt;BottomNavigationAction sx={{ color: colors.white }} label="Create Employee" icon={&lt;AddIcon />} />
-          &lt;BottomNavigationAction sx={{ color: colors.white }} label="Current Employees" icon={&lt;ListIcon />} />
-        &lt;/BottomNavigation>
+      &lt;Typography variant="h5" color={colors.white}>
+        HRnet
+      &lt;/Typography>
+      &lt;Box maxWidth="224px">
+        &lt;Button
+          label="Create Employee"
+          margin="0"
+          padding="5px 10px"
+          size={location.pathname === "/" ? "large" : "small"}
+          variant="text"
+          sx={{ height: "35px" }}
+          onClick={() => navigate("/")}
+          icon={&lt;AddIcon />}
+        />
+        &lt;Button
+          label="Current Employees"
+          margin="0"
+          padding="5px 10px"
+          size={location.pathname === "/employees" ? "large" : "small"}
+          sx={{ height: "35px" }}
+          variant="text"
+          onClick={() => navigate("/employees")}
+          icon={&lt;ListIcon />}
+        />
       &lt;/Box>
     &lt;/Box>
   );
