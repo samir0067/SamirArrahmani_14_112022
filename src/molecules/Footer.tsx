@@ -10,7 +10,7 @@ import useBreakpoints from "utils/hooks/useBreakpoints";
 /**
  * Footer component with navigation link
  */
-export const Footer: FC = () => {
+const Footer: FC = () => {
   const { downSm } = useBreakpoints();
   const location = useLocation();
   const navigate = useNavigate();
@@ -55,3 +55,5 @@ export const Footer: FC = () => {
     </Box>
   );
 };
+
+export default Footer;

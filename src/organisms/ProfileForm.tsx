@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { Grid, Paper } from "@mui/material";
-import { InputField } from "../molecules/InputField";
-import { DateField } from "../molecules/DateField";
+import InputField from "molecules/InputField";
+import DateField from "molecules/DateField";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { Employee } from "../utils/types";
+import { Employee } from "utils/types";
 import { Control, FieldErrors } from "react-hook-form";
 
 type ProfilFormProps = {

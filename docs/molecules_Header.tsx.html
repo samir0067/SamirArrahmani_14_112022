@@ -91,7 +91,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
 import Title from "atoms/Title";
-import useBreakpoints from "../utils/hooks/useBreakpoints";
+import useBreakpoints from "utils/hooks/useBreakpoints";
 import { Box, SxProps } from "@mui/material";
 
 type HeaderProps = {
@@ -108,7 +108,7 @@ type HeaderProps = {
  * @param {string} altImg
  * @param {SxProps} sx
  */
-export const Header: FC&lt;HeaderProps> = ({ title, srcImg, sx, altImg }) => {
+const Header: FC&lt;HeaderProps> = ({ title, srcImg, sx, altImg }) => {
   const { downSm } = useBreakpoints();
 
   return (
@@ -124,6 +124,8 @@ export const Header: FC&lt;HeaderProps> = ({ title, srcImg, sx, altImg }) => {
     &lt;/Box>
   );
 };
+
+export default Header;
 </code></pre>
         </article>
     </section>

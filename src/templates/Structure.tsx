@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { Modal } from "modal-easysam";
 import { Container, Paper } from "@mui/material";
-import { Header } from "molecules/Header";
+import Header from "molecules/Header";
 import LOGO from "assets/logo-bg-off.png";
-import { Footer } from "molecules/Footer";
+import Footer from "molecules/Footer";
 
 type StructureProps = {
   main: JSX.Element;

@@ -93,7 +93,7 @@
 import * as hookForm from "react-hook-form";
 import { InputAdornment } from "@mui/material";
 import { TextField } from "utils/textField.style";
-import { InputFieldProps } from "../utils/types";
+import { InputFieldProps } from "utils/types";
 
 /**
  * Generic text field used to enter the form
@@ -107,7 +107,7 @@ import { InputFieldProps } from "../utils/types";
  * @param {hookForm.Control&lt;any> | undefined} control
  * @param {any} helperText
  */
-export const InputField: FC&lt;InputFieldProps> = ({
+const InputField: FC&lt;InputFieldProps> = ({
   control, //
   error, //
   name, //
@@ -147,6 +147,8 @@ export const InputField: FC&lt;InputFieldProps> = ({
 InputField.defaultProps = {
   type: "text",
 };
+
+export default InputField;
 </code></pre>
         </article>
     </section>

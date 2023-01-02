@@ -92,7 +92,7 @@
             <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
 import * as hookForm from "react-hook-form";
 import { TextField } from "utils/textField.style";
-import { InputFieldProps, SelectProps } from "../utils/types";
+import { InputFieldProps, SelectProps } from "utils/types";
 
 /**
  * Generic select field used to enter the form
@@ -105,7 +105,7 @@ import { InputFieldProps, SelectProps } from "../utils/types";
  * @param {string} placeholder
  * @param {Object[]} options
  */
-export const SelectField: FC&lt;InputFieldProps &amp; SelectProps> = ({
+const SelectField: FC&lt;InputFieldProps &amp; SelectProps> = ({
   control,
   helperText,
   error,
@@ -146,6 +146,8 @@ export const SelectField: FC&lt;InputFieldProps &amp; SelectProps> = ({
     />
   );
 };
+
+export default SelectField;
 </code></pre>
         </article>
     </section>

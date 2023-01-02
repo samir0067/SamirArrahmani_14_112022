@@ -95,7 +95,7 @@ import { LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
 import { TextField } from "utils/textField.style";
 import * as hookForm from "react-hook-form";
 import { InputAdornment } from "@mui/material";
-import { InputFieldProps } from "../utils/types";
+import { InputFieldProps } from "utils/types";
 
 /**
  * Generic Date piker field used to enter the form
@@ -109,7 +109,7 @@ import { InputFieldProps } from "../utils/types";
  * @param {hookForm.Control&lt;any> | undefined} control
  * @param {any} helperText
  */
-export const DateField: FC&lt;InputFieldProps> = ({
+const DateField: FC&lt;InputFieldProps> = ({
   control,
   error,
   name,
@@ -154,6 +154,8 @@ export const DateField: FC&lt;InputFieldProps> = ({
     />
   );
 };
+
+export default DateField;
 </code></pre>
         </article>
     </section>

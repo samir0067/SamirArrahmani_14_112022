@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { Grid, Paper } from "@mui/material";
-import { InputField } from "../molecules/InputField";
-import { SelectField } from "../molecules/SelectField";
-import { STATES } from "../utils/constants";
-import { Employee } from "../utils/types";
+import InputField from "molecules/InputField";
+import SelectField from "molecules/SelectField";
+import { STATES } from "utils/constants";
+import { Employee } from "utils/types";
 import { Control, FieldErrors } from "react-hook-form";
 
 type AddressFormProps = {

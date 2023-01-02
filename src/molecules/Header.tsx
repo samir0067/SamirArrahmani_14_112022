@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import Title from "atoms/Title";
-import useBreakpoints from "../utils/hooks/useBreakpoints";
+import useBreakpoints from "utils/hooks/useBreakpoints";
 import { Box, SxProps } from "@mui/material";
 
 type HeaderProps = {
@@ -17,7 +17,7 @@ type HeaderProps = {
  * @param {string} altImg
  * @param {SxProps} sx
  */
-export const Header: FC<HeaderProps> = ({ title, srcImg, sx, altImg }) => {
+const Header: FC<HeaderProps> = ({ title, srcImg, sx, altImg }) => {
   const { downSm } = useBreakpoints();
 
   return (
@@ -33,3 +33,5 @@ export const Header: FC<HeaderProps> = ({ title, srcImg, sx, altImg }) => {
     </Box>
   );
 };
+
+export default Header;
