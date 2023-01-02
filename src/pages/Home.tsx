@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { useDispatch } from "react-redux";
 import { Box, Grid } from "@mui/material";
-import { addNewEmployee } from "services/employeesReducer";
+import { addNewEmployee } from "store/employeesReducer";
 import { Employee } from "utils/types";
 import { employeeSchema } from "utils/validation";
 import Structure from "templates/Structure";

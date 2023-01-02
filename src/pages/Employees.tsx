@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
-import { selectEmployees } from "services/employeesReducer";
+import { selectEmployees } from "store/employeesReducer";
 import Structure from "templates/Structure";
 import Title from "atoms/Title";
 

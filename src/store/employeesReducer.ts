@@ -1,5 +1,5 @@
 import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "services/storeConfig";
+import { RootState } from "store/storeConfig";
 import { Employee } from "utils/types";
 
 /**
