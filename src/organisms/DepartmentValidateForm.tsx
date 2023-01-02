@@ -4,7 +4,7 @@ import { SelectField } from "../molecules/SelectField";
 import { DEPARTMENT } from "../utils/constants";
 import { Employee } from "../utils/types";
 import { Control, FieldErrors } from "react-hook-form";
-import { Button } from "../atoms/Button";
+import Button from "../atoms/Button";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import useBreakpoints from "../utils/hooks/useBreakpoints";
 

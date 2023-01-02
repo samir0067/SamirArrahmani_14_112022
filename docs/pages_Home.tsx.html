@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#AddressForm">AddressForm</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#createEmployee">createEmployee</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#DepartmentValidateForm">DepartmentValidateForm</a></li><li><a href="global.html#employee">employee</a></li><li><a href="global.html#employeeReducer">employeeReducer</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#storeConfig">storeConfig</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#addNewEmployee">addNewEmployee</a></li><li><a href="global.html#AddressForm">AddressForm</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#DepartmentValidateForm">DepartmentValidateForm</a></li><li><a href="global.html#employees">employees</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#employeesReducer">employeesReducer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#storeConfig">storeConfig</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
                 
             </nav>
         </div>
@@ -90,25 +90,25 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React, { FC, useState } from "react";
-import Structure from "templates/Structure";
-import { Title } from "atoms/Title";
 import { useForm } from "react-hook-form";
-import { Employee } from "../utils/types";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
-import { employeeSchema } from "../utils/validation";
-import ProfileForm from "../organisms/ProfileForm";
-import AddressForm from "../organisms/AddressForm";
+import { useDispatch } from "react-redux";
 import { Box, Grid } from "@mui/material";
-import DepartmentValidateForm from "../organisms/DepartmentValidateForm";
+import { addNewEmployee } from "services/employeesReducer";
+import { Employee } from "utils/types";
+import { employeeSchema } from "utils/validation";
+import Structure from "templates/Structure";
+import ProfileForm from "organisms/ProfileForm";
+import AddressForm from "organisms/AddressForm";
+import DepartmentValidateForm from "organisms/DepartmentValidateForm";
+import { Title } from "atoms/Title";
 
 /**
  * Home page with the add employee form
  */
 const Home: FC = () => {
   const [openModal, setOpenModal] = useState&lt;boolean>(false);
-  const [employee, setEmployee] = useState&lt;Employee>({} as Employee);
-
-  console.log("employee ==>", employee);
+  const dispatch = useDispatch();
 
   const {
     reset,
@@ -122,7 +122,8 @@ const Home: FC = () => {
   });
 
   const handleEmployee = (data: Employee) => {
-    setEmployee({ ...data });
+    // employees.push(data);
+    dispatch(addNewEmployee([data]));
     setOpenModal(true);
     reset({} as Employee);
   };

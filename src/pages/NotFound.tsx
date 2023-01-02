@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "atoms/Button";
 import { Box, Typography } from "@mui/material";
+import Button from "atoms/Button";
 
 /**
  * functional component for the page note found

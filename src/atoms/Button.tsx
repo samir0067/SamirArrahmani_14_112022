@@ -35,7 +35,7 @@ type ButtonProps = {
  * @param {string} backgroundColorHover
  * @param {string} borderColor
  */
-export const Button: FC<ButtonProps> = ({
+const Button: FC<ButtonProps> = ({
   label,
   onClick,
   variant,
@@ -83,3 +83,5 @@ Button.defaultProps = {
   backgroundColor: colors.primary,
   backgroundColorHover: colors.secondary,
 };
+
+export default Button;

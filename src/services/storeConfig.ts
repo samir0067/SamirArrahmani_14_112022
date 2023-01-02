@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import { combineReducers } from "redux";
-import employee from "./employeeReducer";
+import employees from "./employeesReducer";
 
 /**
  * the root of the reducers combined
  */
 const storeConfig = configureStore({
   reducer: combineReducers({
-    employee,
+    employees,
   }),
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(logger),
 });

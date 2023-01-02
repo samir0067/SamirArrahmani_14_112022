@@ -1,23 +1,23 @@
 import React, { FC, useState } from "react";
-import Structure from "templates/Structure";
-import { Title } from "atoms/Title";
 import { useForm } from "react-hook-form";
-import { Employee } from "../utils/types";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
-import { employeeSchema } from "../utils/validation";
-import ProfileForm from "../organisms/ProfileForm";
-import AddressForm from "../organisms/AddressForm";
+import { useDispatch } from "react-redux";
 import { Box, Grid } from "@mui/material";
-import DepartmentValidateForm from "../organisms/DepartmentValidateForm";
+import { addNewEmployee } from "services/employeesReducer";
+import { Employee } from "utils/types";
+import { employeeSchema } from "utils/validation";
+import Structure from "templates/Structure";
+import ProfileForm from "organisms/ProfileForm";
+import AddressForm from "organisms/AddressForm";
+import DepartmentValidateForm from "organisms/DepartmentValidateForm";
+import { Title } from "atoms/Title";
 
 /**
  * Home page with the add employee form
  */
 const Home: FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [employee, setEmployee] = useState<Employee>({} as Employee);
-
-  console.log("employee ==>", employee);
+  const dispatch = useDispatch();
 
   const {
     reset,
@@ -31,7 +31,8 @@ const Home: FC = () => {
   });
 
   const handleEmployee = (data: Employee) => {
-    setEmployee({ ...data });
+    // employees.push(data);
+    dispatch(addNewEmployee([data]));
     setOpenModal(true);
     reset({} as Employee);
   };

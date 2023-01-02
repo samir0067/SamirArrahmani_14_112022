@@ -4,7 +4,7 @@ import { colors } from "utils/constants";
 import AddIcon from "@mui/icons-material/Add";
 import ListIcon from "@mui/icons-material/List";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "atoms/Button";
+import Button from "atoms/Button";
 import useBreakpoints from "utils/hooks/useBreakpoints";
 
 /**
