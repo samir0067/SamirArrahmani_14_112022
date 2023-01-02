@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/InputField.tsx</title>
+  <title> molecules/Footer.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/InputField.tsx</h1>
+                    <h1>molecules/Footer.tsx</h1>
                 </header>
                 
 
@@ -90,65 +90,64 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
-import * as hookForm from "react-hook-form";
-import { InputAdornment } from "@mui/material";
-import { TextField } from "utils/textField.style";
-import { InputFieldProps } from "utils/types";
+import { Box, Typography } from "@mui/material";
+import { colors } from "utils/constants";
+import AddIcon from "@mui/icons-material/Add";
+import ListIcon from "@mui/icons-material/List";
+import { useLocation, useNavigate } from "react-router-dom";
+import Button from "atoms/Button";
+import useBreakpoints from "utils/hooks/useBreakpoints";
 
 /**
- * Generic text field used to enter the form
- * @param {hookForm.FieldErrors} error
- * @param {string} name
- * @param {string} label
- * @param {string} placeholder
- * @param {boolean} disabled
- * @param {React.InputHTMLAttributes} type
- * @param {JSX.Element} icon
- * @param {hookForm.Control&lt;any> | undefined} control
- * @param {any} helperText
+ * Footer component with navigation link
  */
-const InputField: FC&lt;InputFieldProps> = ({
-  control, //
-  error, //
-  name, //
-  label, //
-  placeholder, //
-  disabled,
-  type,
-  icon,
-  helperText, //
-}: InputFieldProps) => {
+const Footer: FC = () => {
+  const { downSm } = useBreakpoints();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   return (
-    &lt;hookForm.Controller
-      name={name}
-      control={control}
-      defaultValue=""
-      render={({ field: { onChange, onBlur, value, ref } }) => (
-        &lt;TextField
-          inputRef={ref}
-          disabled={disabled}
-          type={type}
-          label={label}
-          value={value}
-          onBlur={onBlur}
-          error={!!error[name]}
-          placeholder={placeholder}
-          helperText={(error[name] &amp;&amp; error[name]?.message) || helperText}
-          onChange={(value1) => onChange(value1)}
-          InputProps={{
-            endAdornment: &lt;InputAdornment position="end">{icon}&lt;/InputAdornment>,
-          }}
+    &lt;Box
+      bgcolor={colors.secondary}
+      height="72px"
+      width="100%"
+      display="flex"
+      justifyContent={downSm ? "center" : "space-around"}
+      alignItems="center"
+      position="fixed"
+      bottom={0}
+      zIndex={1.5}
+    >
+      &lt;Typography variant="h5" color={colors.white}>
+        HRnet
+      &lt;/Typography>
+      &lt;Box maxWidth="224px">
+        &lt;Button
+          label="Create Employee"
+          margin="0"
+          padding="5px 10px"
+          size={location.pathname === "/" ? "large" : "small"}
+          variant="text"
+          sx={{ height: "35px" }}
+          onClick={() => navigate("/")}
+          icon={&lt;AddIcon />}
         />
-      )}
-    />
+        &lt;Button
+          label="Current Employees"
+          margin="0"
+          padding="5px 10px"
+          size={location.pathname === "/employees" ? "large" : "small"}
+          sx={{ height: "35px" }}
+          variant="text"
+          onClick={() => navigate("/employees")}
+          icon={&lt;ListIcon />}
+        />
+      &lt;/Box>
+    &lt;/Box>
   );
 };
 
-InputField.defaultProps = {
-  type: "text",
-};
-
-export default InputField;
+export default Footer;
 </code></pre>
         </article>
     </section>

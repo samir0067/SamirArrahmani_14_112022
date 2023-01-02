@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/InputField.tsx</title>
+  <title> pages/NotFound.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/InputField.tsx</h1>
+                    <h1>pages/NotFound.tsx</h1>
                 </header>
                 
 
@@ -90,65 +90,28 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
-import * as hookForm from "react-hook-form";
-import { InputAdornment } from "@mui/material";
-import { TextField } from "utils/textField.style";
-import { InputFieldProps } from "utils/types";
+import { useNavigate } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
+import Button from "atoms/Button";
 
 /**
- * Generic text field used to enter the form
- * @param {hookForm.FieldErrors} error
- * @param {string} name
- * @param {string} label
- * @param {string} placeholder
- * @param {boolean} disabled
- * @param {React.InputHTMLAttributes} type
- * @param {JSX.Element} icon
- * @param {hookForm.Control&lt;any> | undefined} control
- * @param {any} helperText
+ * functional component for the page note found
  */
-const InputField: FC&lt;InputFieldProps> = ({
-  control, //
-  error, //
-  name, //
-  label, //
-  placeholder, //
-  disabled,
-  type,
-  icon,
-  helperText, //
-}: InputFieldProps) => {
+const NotFound: FC = () => {
+  const navigate = useNavigate();
+
   return (
-    &lt;hookForm.Controller
-      name={name}
-      control={control}
-      defaultValue=""
-      render={({ field: { onChange, onBlur, value, ref } }) => (
-        &lt;TextField
-          inputRef={ref}
-          disabled={disabled}
-          type={type}
-          label={label}
-          value={value}
-          onBlur={onBlur}
-          error={!!error[name]}
-          placeholder={placeholder}
-          helperText={(error[name] &amp;&amp; error[name]?.message) || helperText}
-          onChange={(value1) => onChange(value1)}
-          InputProps={{
-            endAdornment: &lt;InputAdornment position="end">{icon}&lt;/InputAdornment>,
-          }}
-        />
-      )}
-    />
+    &lt;main>
+      &lt;Box>
+        &lt;Typography variant="h1">404&lt;/Typography>
+        &lt;Typography variant="body1">Oops! the page you asked for does not exist.&lt;/Typography>
+        &lt;Button label="Return to the home page" onClick={() => navigate("/")} />
+      &lt;/Box>
+    &lt;/main>
   );
 };
 
-InputField.defaultProps = {
-  type: "text",
-};
-
-export default InputField;
+export default NotFound;
 </code></pre>
         </article>
     </section>

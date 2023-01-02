@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/InputField.tsx</title>
+  <title> pages/Home.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/InputField.tsx</h1>
+                    <h1>pages/Home.tsx</h1>
                 </header>
                 
 
@@ -89,66 +89,66 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
-import * as hookForm from "react-hook-form";
-import { InputAdornment } from "@mui/material";
-import { TextField } from "utils/textField.style";
-import { InputFieldProps } from "utils/types";
+            <pre class="prettyprint source linenums"><code>import React, { FC, useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+import { useDispatch } from "react-redux";
+import { Box, Grid } from "@mui/material";
+import { addNewEmployee } from "services/employeesReducer";
+import { Employee } from "utils/types";
+import { employeeSchema } from "utils/validation";
+import Structure from "templates/Structure";
+import ProfileForm from "organisms/ProfileForm";
+import AddressForm from "organisms/AddressForm";
+import DepartmentValidateForm from "organisms/DepartmentValidateForm";
+import Title from "atoms/Title";
 
 /**
- * Generic text field used to enter the form
- * @param {hookForm.FieldErrors} error
- * @param {string} name
- * @param {string} label
- * @param {string} placeholder
- * @param {boolean} disabled
- * @param {React.InputHTMLAttributes} type
- * @param {JSX.Element} icon
- * @param {hookForm.Control&lt;any> | undefined} control
- * @param {any} helperText
+ * Home page with the add employee form
  */
-const InputField: FC&lt;InputFieldProps> = ({
-  control, //
-  error, //
-  name, //
-  label, //
-  placeholder, //
-  disabled,
-  type,
-  icon,
-  helperText, //
-}: InputFieldProps) => {
+const Home: FC = () => {
+  const [openModal, setOpenModal] = useState&lt;boolean>(false);
+  const dispatch = useDispatch();
+
+  const {
+    reset,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm&lt;Employee>({
+    resolver: yupResolver(employeeSchema),
+    reValidateMode: "onBlur",
+    shouldFocusError: false,
+  });
+
+  const handleEmployee = (data: Employee) => {
+    // employees.push(data);
+    dispatch(addNewEmployee([data]));
+    setOpenModal(true);
+    reset({} as Employee);
+  };
+
   return (
-    &lt;hookForm.Controller
-      name={name}
-      control={control}
-      defaultValue=""
-      render={({ field: { onChange, onBlur, value, ref } }) => (
-        &lt;TextField
-          inputRef={ref}
-          disabled={disabled}
-          type={type}
-          label={label}
-          value={value}
-          onBlur={onBlur}
-          error={!!error[name]}
-          placeholder={placeholder}
-          helperText={(error[name] &amp;&amp; error[name]?.message) || helperText}
-          onChange={(value1) => onChange(value1)}
-          InputProps={{
-            endAdornment: &lt;InputAdornment position="end">{icon}&lt;/InputAdornment>,
-          }}
-        />
-      )}
+    &lt;Structure
+      titleHeader="Create Employee"
+      openModal={openModal}
+      setOpenModal={() => setOpenModal(false)}
+      titleModal={"Employee Created!"}
+      contentModal={&lt;Title component="p" variant="body1" title="Teste de la modal" />}
+      main={
+        &lt;Box component="form">
+          &lt;Grid container rowSpacing={{ xs: 1, md: 3 }} columnSpacing={{ xs: 1, md: 3 }}>
+            &lt;ProfileForm control={control} error={errors} />
+            &lt;AddressForm control={control} error={errors} />
+            &lt;DepartmentValidateForm control={control} error={errors} onClick={handleSubmit(handleEmployee)} />
+          &lt;/Grid>
+        &lt;/Box>
+      }
     />
   );
 };
 
-InputField.defaultProps = {
-  type: "text",
-};
-
-export default InputField;
+export default Home;
 </code></pre>
         </article>
     </section>

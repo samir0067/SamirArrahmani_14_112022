@@ -8,6 +8,7 @@ import { colors } from "utils/constants";
 export const TextField = styled(MuiTextField)(() => ({
   width: "100%",
   margin: "10px 0",
+  zIndex: 0,
   "& .MuiOutlinedInput-root": {
     backgroundColor: colors.white,
     borderRadius: "9px",
@@ -15,16 +16,16 @@ export const TextField = styled(MuiTextField)(() => ({
       borderColor: colors.primary,
     },
     "&.Mui-focused fieldset": {
-      borderColor: colors.tertiary,
+      borderColor: colors.secondary,
     },
   },
   label: {
     color: colors.black,
   },
   "& label.Mui-focused": {
-    color: colors.tertiary,
+    color: colors.secondary,
   },
   "& .MuiInput-underline:after": {
-    borderColor: colors.tertiary,
+    borderColor: colors.secondary,
   },
 }));

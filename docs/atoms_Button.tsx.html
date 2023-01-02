@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#addNewEmployee">addNewEmployee</a></li><li><a href="global.html#AddressForm">AddressForm</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#DepartmentValidateForm">DepartmentValidateForm</a></li><li><a href="global.html#employees">employees</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#employeesReducer">employeesReducer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#storeConfig">storeConfig</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
                 
             </nav>
         </div>
@@ -100,6 +100,8 @@ type ButtonProps = {
   icon?: ReactNode;
   sx?: SxProps;
   color?: string;
+  margin?: string;
+  padding?: string;
   disabled?: boolean;
   size?: "medium" | "small" | "large";
   variant?: "text" | "contained" | "outlined";
@@ -115,6 +117,8 @@ type ButtonProps = {
  * @param {ReactNode} icon
  * @param {SxProps} sx
  * @param {string} color
+ * @param {string} margin
+ * @param {string} padding
  * @param {boolean} disabled
  * @param {"small" | "medium" | "large"} size
  * @param {text | contained | outlined} variant
@@ -122,13 +126,15 @@ type ButtonProps = {
  * @param {string} backgroundColorHover
  * @param {string} borderColor
  */
-export const Button: FC&lt;ButtonProps> = ({
+const Button: FC&lt;ButtonProps> = ({
   label,
   onClick,
   variant,
   icon,
   sx,
   size,
+  margin,
+  padding,
   disabled,
   color,
   backgroundColor,
@@ -144,8 +150,8 @@ export const Button: FC&lt;ButtonProps> = ({
       disabled={disabled}
       sx={{
         ...sx,
-        margin: "10px 0",
-        padding: "7px 23px",
+        margin: margin,
+        padding: padding,
         borderRadius: "9px",
         fontFamily: "Roboto",
         borderColor: borderColor,
@@ -161,11 +167,15 @@ export const Button: FC&lt;ButtonProps> = ({
 
 Button.defaultProps = {
   size: "medium",
+  margin: "10px 0",
+  padding: "7px 23px",
   variant: "contained",
   color: colors.white,
   backgroundColor: colors.primary,
-  backgroundColorHover: colors.tertiary,
+  backgroundColorHover: colors.secondary,
 };
+
+export default Button;
 </code></pre>
         </article>
     </section>

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import * as hookForm from "react-hook-form";
 import { TextField } from "utils/textField.style";
-import { InputFieldProps, SelectProps } from "../utils/types";
+import { InputFieldProps, SelectProps } from "utils/types";
 
 /**
  * Generic select field used to enter the form
@@ -14,7 +14,7 @@ import { InputFieldProps, SelectProps } from "../utils/types";
  * @param {string} placeholder
  * @param {Object[]} options
  */
-export const SelectField: FC<InputFieldProps & SelectProps> = ({
+const SelectField: FC<InputFieldProps & SelectProps> = ({
   control,
   helperText,
   error,
@@ -55,3 +55,5 @@ export const SelectField: FC<InputFieldProps & SelectProps> = ({
     />
   );
 };
+
+export default SelectField;

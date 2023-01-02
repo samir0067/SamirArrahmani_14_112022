@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/InputField.tsx</title>
+  <title> services/employeesReducer.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#addNewEmployee">addNewEmployee</a></li><li><a href="global.html#AddressForm">AddressForm</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#DepartmentValidateForm">DepartmentValidateForm</a></li><li><a href="global.html#employees">employees</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#employeesReducer">employeesReducer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#storeConfig">storeConfig</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#AddressForm">AddressForm</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#createEmployee">createEmployee</a></li><li><a href="global.html#DateField">DateField</a></li><li><a href="global.html#DepartmentValidateForm">DepartmentValidateForm</a></li><li><a href="global.html#employee">employee</a></li><li><a href="global.html#employeeReducer">employeesReducer</a></li><li><a href="global.html#employeeSchema">employeeSchema</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#InputField">InputField</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#SelectField">SelectField</a></li><li><a href="global.html#storeConfig">storeConfig</a></li><li><a href="global.html#TextField">TextField</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#useBreakpoints">useBreakpoints</a></li></ul></div>
                 
             </nav>
         </div>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/InputField.tsx</h1>
+                    <h1>services/employeesReducer.ts</h1>
                 </header>
                 
 
@@ -89,66 +89,56 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
-import * as hookForm from "react-hook-form";
-import { InputAdornment } from "@mui/material";
-import { TextField } from "utils/textField.style";
-import { InputFieldProps } from "utils/types";
+            <pre class="prettyprint source linenums"><code>import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "services/storeConfig";
+import { Employee } from "utils/types";
 
 /**
- * Generic text field used to enter the form
- * @param {hookForm.FieldErrors} error
- * @param {string} name
- * @param {string} label
- * @param {string} placeholder
- * @param {boolean} disabled
- * @param {React.InputHTMLAttributes} type
- * @param {JSX.Element} icon
- * @param {hookForm.Control&lt;any> | undefined} control
- * @param {any} helperText
+ * The initial state of the reducer is passed as first argument
  */
-const InputField: FC&lt;InputFieldProps> = ({
-  control, //
-  error, //
-  name, //
-  label, //
-  placeholder, //
-  disabled,
-  type,
-  icon,
-  helperText, //
-}: InputFieldProps) => {
-  return (
-    &lt;hookForm.Controller
-      name={name}
-      control={control}
-      defaultValue=""
-      render={({ field: { onChange, onBlur, value, ref } }) => (
-        &lt;TextField
-          inputRef={ref}
-          disabled={disabled}
-          type={type}
-          label={label}
-          value={value}
-          onBlur={onBlur}
-          error={!!error[name]}
-          placeholder={placeholder}
-          helperText={(error[name] &amp;&amp; error[name]?.message) || helperText}
-          onChange={(value1) => onChange(value1)}
-          InputProps={{
-            endAdornment: &lt;InputAdornment position="end">{icon}&lt;/InputAdornment>,
-          }}
-        />
-      )}
-    />
-  );
+const employee: Employee = {
+  firstName: "",
+  lastName: "",
+  birthDate: "",
+  startDate: "",
+  address: {
+    street: "",
+    zipCode: parseInt(""),
+    city: "",
+    state: "",
+  },
+  department: "",
 };
 
-InputField.defaultProps = {
-  type: "text",
-};
+/**
+ * A function utility to create actions for the given type
+ */
+export const createEmployee = createAction&lt;Employee>("createEmployee");
 
-export default InputField;
+/**
+ *  A function to define a reducer as a response between a type of action
+ */
+const employeesReducer = createReducer(employee, (builder) =>
+  builder.addCase(createEmployee, (state, action: PayloadAction&lt;Employee>) => {
+    return {
+      ...state,
+      firstName: action.payload.firstName,
+      lastName: action.payload.lastName,
+      birthDate: action.payload.birthDate,
+      startDate: action.payload.startDate,
+      department: action.payload.department,
+      address: {
+        street: action.payload.address.street,
+        zipCode: action.payload.address.zipCode,
+        city: action.payload.address.city,
+        state: action.payload.address.state,
+      },
+    };
+  }),
+);
+
+export const selectEmployee = (state: RootState) => state.employee;
+export default employeesReducer;
 </code></pre>
         </article>
     </section>

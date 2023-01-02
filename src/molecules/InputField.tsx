@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import * as hookForm from "react-hook-form";
 import { InputAdornment } from "@mui/material";
 import { TextField } from "utils/textField.style";
-import { InputFieldProps } from "../utils/types";
+import { InputFieldProps } from "utils/types";
 
 /**
  * Generic text field used to enter the form
@@ -16,7 +16,7 @@ import { InputFieldProps } from "../utils/types";
  * @param {hookForm.Control<any> | undefined} control
  * @param {any} helperText
  */
-export const InputField: FC<InputFieldProps> = ({
+const InputField: FC<InputFieldProps> = ({
   control, //
   error, //
   name, //
@@ -56,3 +56,5 @@ export const InputField: FC<InputFieldProps> = ({
 InputField.defaultProps = {
   type: "text",
 };
+
+export default InputField;

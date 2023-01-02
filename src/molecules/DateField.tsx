@@ -4,7 +4,7 @@ import { LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
 import { TextField } from "utils/textField.style";
 import * as hookForm from "react-hook-form";
 import { InputAdornment } from "@mui/material";
-import { InputFieldProps } from "../utils/types";
+import { InputFieldProps } from "utils/types";
 
 /**
  * Generic Date piker field used to enter the form
@@ -18,7 +18,7 @@ import { InputFieldProps } from "../utils/types";
  * @param {hookForm.Control<any> | undefined} control
  * @param {any} helperText
  */
-export const DateField: FC<InputFieldProps> = ({
+const DateField: FC<InputFieldProps> = ({
   control,
   error,
   name,
@@ -63,3 +63,5 @@ export const DateField: FC<InputFieldProps> = ({
     />
   );
 };
+
+export default DateField;

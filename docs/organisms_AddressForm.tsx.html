@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/InputField.tsx</title>
+  <title> organisms/AddressForm.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/InputField.tsx</h1>
+                    <h1>organisms/AddressForm.tsx</h1>
                 </header>
                 
 
@@ -90,65 +90,37 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
-import * as hookForm from "react-hook-form";
-import { InputAdornment } from "@mui/material";
-import { TextField } from "utils/textField.style";
-import { InputFieldProps } from "utils/types";
+import { Grid, Paper } from "@mui/material";
+import InputField from "molecules/InputField";
+import SelectField from "molecules/SelectField";
+import { STATES } from "utils/constants";
+import { Employee } from "utils/types";
+import { Control, FieldErrors } from "react-hook-form";
+
+type AddressFormProps = {
+  control: Control&lt;Employee>;
+  error: FieldErrors&lt;Employee>;
+};
 
 /**
- * Generic text field used to enter the form
- * @param {hookForm.FieldErrors} error
- * @param {string} name
- * @param {string} label
- * @param {string} placeholder
- * @param {boolean} disabled
- * @param {React.InputHTMLAttributes} type
- * @param {JSX.Element} icon
- * @param {hookForm.Control&lt;any> | undefined} control
- * @param {any} helperText
+ * Functional component of an address information field organization
+ * @param {Control&lt;Employee>} control
+ * @param {FieldErrors&lt;Employee>} error
  */
-const InputField: FC&lt;InputFieldProps> = ({
-  control, //
-  error, //
-  name, //
-  label, //
-  placeholder, //
-  disabled,
-  type,
-  icon,
-  helperText, //
-}: InputFieldProps) => {
+const AddressForm: FC&lt;AddressFormProps> = ({ control, error }: AddressFormProps) => {
   return (
-    &lt;hookForm.Controller
-      name={name}
-      control={control}
-      defaultValue=""
-      render={({ field: { onChange, onBlur, value, ref } }) => (
-        &lt;TextField
-          inputRef={ref}
-          disabled={disabled}
-          type={type}
-          label={label}
-          value={value}
-          onBlur={onBlur}
-          error={!!error[name]}
-          placeholder={placeholder}
-          helperText={(error[name] &amp;&amp; error[name]?.message) || helperText}
-          onChange={(value1) => onChange(value1)}
-          InputProps={{
-            endAdornment: &lt;InputAdornment position="end">{icon}&lt;/InputAdornment>,
-          }}
-        />
-      )}
-    />
+    &lt;Grid item xs={12} sm={6}>
+      &lt;Paper elevation={5} sx={{ padding: "12px" }}>
+        &lt;InputField name="street" control={control} error={error} label="Street" />
+        &lt;InputField name="zipCode" type="number" control={control} error={error} label="Zip Code" />
+        &lt;InputField name="city" control={control} error={error} label="City" />
+        &lt;SelectField name="state" control={control} error={error} label="State" options={STATES} />
+      &lt;/Paper>
+    &lt;/Grid>
   );
 };
 
-InputField.defaultProps = {
-  type: "text",
-};
-
-export default InputField;
+export default AddressForm;
 </code></pre>
         </article>
     </section>

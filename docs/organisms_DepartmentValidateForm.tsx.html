@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/InputField.tsx</title>
+  <title> organisms/DepartmentValidateForm.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/InputField.tsx</h1>
+                    <h1>organisms/DepartmentValidateForm.tsx</h1>
                 </header>
                 
 
@@ -90,65 +90,53 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
-import * as hookForm from "react-hook-form";
-import { InputAdornment } from "@mui/material";
-import { TextField } from "utils/textField.style";
-import { InputFieldProps } from "utils/types";
+import { Grid, Paper } from "@mui/material";
+import SelectField from "molecules/SelectField";
+import { DEPARTMENT } from "utils/constants";
+import { Employee } from "utils/types";
+import { Control, FieldErrors } from "react-hook-form";
+import Button from "atoms/Button";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import useBreakpoints from "utils/hooks/useBreakpoints";
+
+type DepartmentValidateFormProps = {
+  control: Control&lt;Employee>;
+  error: FieldErrors&lt;Employee>;
+  onClick: () => void;
+};
 
 /**
- * Generic text field used to enter the form
- * @param {hookForm.FieldErrors} error
- * @param {string} name
- * @param {string} label
- * @param {string} placeholder
- * @param {boolean} disabled
- * @param {React.InputHTMLAttributes} type
- * @param {JSX.Element} icon
- * @param {hookForm.Control&lt;any> | undefined} control
- * @param {any} helperText
+ * Functional component of an organization of information fields on the department and the validation of the form
+ * @param {Control&lt;Employee>} control
+ * @param {FieldErrors&lt;Employee>} error
+ * @param {function} onClick
  */
-const InputField: FC&lt;InputFieldProps> = ({
-  control, //
-  error, //
-  name, //
-  label, //
-  placeholder, //
-  disabled,
-  type,
-  icon,
-  helperText, //
-}: InputFieldProps) => {
+const DepartmentValidateForm: FC&lt;DepartmentValidateFormProps> = ({
+  control,
+  error,
+  onClick,
+}: DepartmentValidateFormProps) => {
+  const { downSm } = useBreakpoints();
+
   return (
-    &lt;hookForm.Controller
-      name={name}
-      control={control}
-      defaultValue=""
-      render={({ field: { onChange, onBlur, value, ref } }) => (
-        &lt;TextField
-          inputRef={ref}
-          disabled={disabled}
-          type={type}
-          label={label}
-          value={value}
-          onBlur={onBlur}
-          error={!!error[name]}
-          placeholder={placeholder}
-          helperText={(error[name] &amp;&amp; error[name]?.message) || helperText}
-          onChange={(value1) => onChange(value1)}
-          InputProps={{
-            endAdornment: &lt;InputAdornment position="end">{icon}&lt;/InputAdornment>,
-          }}
-        />
-      )}
-    />
+    &lt;Grid item xs>
+      &lt;Paper
+        elevation={5}
+        sx={{
+          padding: "12px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: downSm ? "center" : "start",
+        }}
+      >
+        &lt;SelectField name="department" control={control} error={error} label="Department" options={DEPARTMENT} />
+        &lt;Button label="Save" onClick={onClick} icon={&lt;HowToRegIcon />} />
+      &lt;/Paper>
+    &lt;/Grid>
   );
 };
 
-InputField.defaultProps = {
-  type: "text",
-};
-
-export default InputField;
+export default DepartmentValidateForm;
 </code></pre>
         </article>
     </section>

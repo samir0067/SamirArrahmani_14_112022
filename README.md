@@ -39,8 +39,10 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Atomic Design Methodology
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Atomic design methodology is an approach to web design that focuses on creating basic components that can be reused to build more complex user interfaces.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The concept is based on the idea that all user interfaces are composed of small basic elements called "atoms", which can be combined to create more complex elements called "molecules" and "organisms".
+
+Using this approach, designers can build more efficient and more easily updated user interfaces by working from solid building blocks.![alt text](https://res.cloudinary.com/practicaldev/image/fetch/s--5P6bVERh--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tygl6jzjc8m8sjwcluq8.png)
