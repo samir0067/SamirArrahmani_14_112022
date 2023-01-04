@@ -27,7 +27,7 @@ const Footer: FC = () => {
       bottom={0}
       zIndex={1.5}
     >
-      <Typography variant="h5" color={colors.white}>
+      <Typography variant="body2" color={colors.white}>
         HRnet
       </Typography>
       <Box maxWidth="224px">

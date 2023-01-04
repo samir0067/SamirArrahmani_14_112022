@@ -28,7 +28,7 @@ const Header: FC<HeaderProps> = ({ title, srcImg, sx, altImg }) => {
       justifyContent={downSm ? "center" : "space-around"}
       sx={{ ...sx }}
     >
-      <img width="150px" height="auto" src={srcImg} alt={altImg} />
+      <img width="300px" height="276px" src={srcImg} alt={altImg} />
       <Title slideDirection="down" component="h2" variant={downSm ? "h5" : "h3"} title={title} />
     </Box>
   );
