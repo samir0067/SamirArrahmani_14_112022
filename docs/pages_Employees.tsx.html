@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> pages/Home.tsx</title>
+  <title> pages/Employees.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>pages/Home.tsx</h1>
+                    <h1>pages/Employees.tsx</h1>
                 </header>
                 
 
@@ -89,70 +89,123 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC, useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
-import { useDispatch, useSelector } from "react-redux";
-import { Box, Grid } from "@mui/material";
-import { addNewEmployee, selectEmployees } from "store/employeesReducer";
+            <pre class="prettyprint source linenums"><code>import React, { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Table, TableBody, TableCell, TableContainer, TablePagination, TableRow, Typography } from "@mui/material";
+import { selectEmployees } from "store/employeesReducer";
+import useFilterEmployee from "utils/hooks/useFilterEmployee";
 import { Employee } from "utils/types";
-import { employeeSchema } from "utils/validation";
 import Structure from "templates/Structure";
-import ProfileForm from "organisms/ProfileForm";
-import AddressForm from "organisms/AddressForm";
-import DepartmentValidateForm from "organisms/DepartmentValidateForm";
-import Title from "atoms/Title";
+import TableToolbar from "organisms/TableToolbar";
+import TableHeader from "organisms/TableHeader";
 
 /**
- * Home page with the add employee form
+ * Functional components, with the display of the list of registered employees
  */
-const Home: FC = () => {
-  const [openModal, setOpenModal] = useState&lt;boolean>(false);
-  const dispatch = useDispatch();
+const Employees = () => {
   const employees = useSelector(selectEmployees);
+  const { applySortFilter, getComparator } = useFilterEmployee();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [order, setOrder] = useState&lt;"asc" | "desc">("asc");
+  const [orderBy, setOrderBy] = useState&lt;keyof Employee>("firstName");
+  const [employeesRows, setEmployeesRows] = useState&lt;Employee[]>([]);
+  const [filterEmployee, setFilterEmployee] = useState("");
 
-  const {
-    reset,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm&lt;Employee>({
-    resolver: yupResolver(employeeSchema),
-    reValidateMode: "onBlur",
-    shouldFocusError: false,
-  });
+  useEffect(() => {
+    if (Array.isArray(employees) &amp;&amp; employees.length) {
+      const rowsCache: Employee[] = [];
+      employees.forEach((value: Employee) => {
+        const birthDate = `${new Date(value.birthDate).toLocaleDateString()}`;
+        const startDate = `${new Date(value.startDate).toLocaleDateString()}`;
+        rowsCache.push({
+          firstName: value.firstName,
+          lastName: value.lastName,
+          birthDate: value.birthDate ? birthDate : "",
+          startDate: value.birthDate ? startDate : "",
+          street: value.street,
+          zipCode: value.zipCode,
+          city: value.city,
+          state: value.state,
+          department: value.department,
+        });
+      });
+      setEmployeesRows(rowsCache);
+    }
+  }, [employees]);
 
-  const handleEmployee = (data: Employee) => {
-    dispatch(addNewEmployee([data]));
-    setOpenModal(true);
-    reset({} as Employee);
+  const filteredEmployee = applySortFilter(employeesRows, filterEmployee, getComparator(order, orderBy));
+
+  const handleRequestSort = (event: MouseEvent&lt;unknown>, property: keyof Employee) => {
+    const isAsc = orderBy === property &amp;&amp; order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
   };
 
-  const handleValidation = () => {
-    localStorage.setItem("employees", JSON.stringify(employees));
-    setOpenModal(false);
-  };
   return (
     &lt;Structure
       titleHeader="Create Employee"
-      openModal={openModal}
-      setOpenModal={handleValidation}
-      titleModal={"Employee Created!"}
-      contentModal={&lt;Title component="p" variant="body1" title="Teste de la modal" />}
       main={
-        &lt;Box component="form">
-          &lt;Grid container rowSpacing={{ xs: 1, md: 3 }} columnSpacing={{ xs: 1, md: 3 }}>
-            &lt;ProfileForm control={control} error={errors} />
-            &lt;AddressForm control={control} error={errors} />
-            &lt;DepartmentValidateForm control={control} error={errors} onClick={handleSubmit(handleEmployee)} />
-          &lt;/Grid>
-        &lt;/Box>
+        &lt;>
+          &lt;TableToolbar
+            filterEmployee={filterEmployee}
+            onFilterEmployee={(event) => setFilterEmployee(event.target.value)}
+          />
+          &lt;TableContainer>
+            &lt;Table sx={{ minWidth: 750 }}>
+              &lt;TableHeader order={order} orderBy={orderBy} sortingOnRequest={handleRequestSort} />
+              &lt;TableBody>
+                {filteredEmployee
+                  .sort(getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    return (
+                      &lt;TableRow key={index}>
+                        &lt;TableCell align="center">{row.firstName}&lt;/TableCell>
+                        &lt;TableCell align="center">{row.lastName}&lt;/TableCell>
+                        &lt;TableCell align="center">{row.startDate}&lt;/TableCell>
+                        &lt;TableCell align="center">{row.department}&lt;/TableCell>
+                        &lt;TableCell align="center">{row.birthDate}&lt;/TableCell>
+                        &lt;TableCell align="center">{row.street}&lt;/TableCell>
+                        &lt;TableCell align="center">{row.city}&lt;/TableCell>
+                        &lt;TableCell align="center">{row.state}&lt;/TableCell>
+                        &lt;TableCell align="center">{row.zipCode}&lt;/TableCell>
+                      &lt;/TableRow>
+                    );
+                  })}
+              &lt;/TableBody>
+              {filteredEmployee.length === 0 &amp;&amp; (
+                &lt;TableBody>
+                  &lt;TableRow>
+                    &lt;TableCell align="center" colSpan={6} sx={{ paddingY: 3 }}>
+                      &lt;Typography variant="body2" align="center">
+                        Aucun résultat trouvé pour cette recherche. Essayez une autre saisie.
+                      &lt;/Typography>
+                    &lt;/TableCell>
+                  &lt;/TableRow>
+                &lt;/TableBody>
+              )}
+            &lt;/Table>
+          &lt;/TableContainer>
+          &lt;TablePagination
+            component="div"
+            page={page}
+            rowsPerPage={rowsPerPage}
+            count={employeesRows.length}
+            rowsPerPageOptions={[5, 10, 15]}
+            onPageChange={(event: unknown, newPage: number) => setPage(newPage)}
+            onRowsPerPageChange={(event: ChangeEvent&lt;HTMLInputElement>) => {
+              setRowsPerPage(parseInt(event.target.value, 10));
+              setPage(0);
+            }}
+          />
+        &lt;/>
       }
     />
   );
 };
 
-export default Home;
+export default Employees;
 </code></pre>
         </article>
     </section>
