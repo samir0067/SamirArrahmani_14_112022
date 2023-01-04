@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import "./App.css";
 import Home from "pages/Home";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "pages/NotFound";

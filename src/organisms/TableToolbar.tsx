@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import { InputAdornment, Toolbar, Typography } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Box, Toolbar, Typography } from "@mui/material";
 import { TextField } from "utils/textField.style";
+import useBreakpoints from "utils/hooks/useBreakpoints";
 
 export interface TableToolbarProps {
   filterEmployee: string;
@@ -9,19 +9,15 @@ export interface TableToolbarProps {
 }
 
 const TableToolbar: FC<TableToolbarProps> = ({ filterEmployee, onFilterEmployee }) => {
+  const { downSm } = useBreakpoints();
+
   return (
     <Toolbar>
-      <Typography sx={{ flex: "1 100%" }} variant="h6" id="tableTitle" component="div">
+      {!downSm && <Box component="div" sx={{ flex: "1 100%" }} />}
+      <Typography sx={{ marginRight: "7px" }} variant="h6">
         Search:
       </Typography>
-      <TextField
-        type="search"
-        value={filterEmployee}
-        onChange={onFilterEmployee}
-        InputProps={{
-          endAdornment: <InputAdornment position="end">{<SearchIcon />}</InputAdornment>,
-        }}
-      />
+      <TextField type="search" value={filterEmployee} onChange={onFilterEmployee} />
     </Toolbar>
   );
 };

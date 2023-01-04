@@ -1,17 +1,17 @@
-import React, { FC } from "react";
+import React, { FC, MouseEvent } from "react";
 import { Box, TableCell, TableHead, TableRow, TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
 import { Employee, HeadCell } from "utils/types";
-import { headCells } from "../utils/headCells";
+import { headCells } from "utils/headCells";
 
 export type TableHeaderProps = {
-  sortingOnRequest: (event: React.MouseEvent<unknown>, property: keyof Employee) => void;
+  sortingOnRequest: (event: MouseEvent<unknown>, property: keyof Employee) => void;
   order: "asc" | "desc";
   orderBy: string;
 };
 
 const TableHeader: FC<TableHeaderProps> = ({ sortingOnRequest, order, orderBy }) => {
-  const createSortHandler = (property: keyof Employee) => (event: React.MouseEvent<unknown>) => {
+  const createSortHandler = (property: keyof Employee) => (event: MouseEvent<unknown>) => {
     sortingOnRequest(event, property);
   };
 

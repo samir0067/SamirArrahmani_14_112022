@@ -1,9 +1,9 @@
 import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, Grid } from "@mui/material";
-import { addNewEmployee } from "store/employeesReducer";
+import { addNewEmployee, selectEmployees } from "store/employeesReducer";
 import { Employee } from "utils/types";
 import { employeeSchema } from "utils/validation";
 import Structure from "templates/Structure";
@@ -18,6 +18,7 @@ import Title from "atoms/Title";
 const Home: FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const employees = useSelector(selectEmployees);
 
   const {
     reset,
@@ -31,17 +32,20 @@ const Home: FC = () => {
   });
 
   const handleEmployee = (data: Employee) => {
-    // employees.push(data);
     dispatch(addNewEmployee([data]));
     setOpenModal(true);
     reset({} as Employee);
   };
 
+  const handleValidation = () => {
+    localStorage.setItem("employees", JSON.stringify(employees));
+    setOpenModal(false);
+  };
   return (
     <Structure
       titleHeader="Create Employee"
       openModal={openModal}
-      setOpenModal={() => setOpenModal(false)}
+      setOpenModal={handleValidation}
       titleModal={"Employee Created!"}
       contentModal={<Title component="p" variant="body1" title="Teste de la modal" />}
       main={
