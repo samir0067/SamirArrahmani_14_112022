@@ -7,17 +7,13 @@ import { useTheme } from "@mui/material/styles";
 const useBreakpoints = () => {
   const theme = useTheme();
 
-  const upXs = useMediaQuery(theme.breakpoints.up("xs"));
-
   const downSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   const downMd = useMediaQuery(theme.breakpoints.down("md"));
 
   const downLg = useMediaQuery(theme.breakpoints.down("lg"));
 
-  const upLg = useMediaQuery(theme.breakpoints.up("lg"));
-
-  return { upXs, downSm, downMd, downLg, upLg };
+  return { downSm, downMd, downLg };
 };
 
 export default useBreakpoints;

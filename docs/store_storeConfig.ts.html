@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> molecules/Footer.tsx</title>
+  <title> store/storeConfig.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>molecules/Footer.tsx</h1>
+                    <h1>store/storeConfig.ts</h1>
                 </header>
                 
 
@@ -89,65 +89,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { FC } from "react";
-import { Box, Typography } from "@mui/material";
-import { colors } from "utils/constants";
-import AddIcon from "@mui/icons-material/Add";
-import ListIcon from "@mui/icons-material/List";
-import { useLocation, useNavigate } from "react-router-dom";
-import Button from "atoms/Button";
-import useBreakpoints from "utils/hooks/useBreakpoints";
+            <pre class="prettyprint source linenums"><code>import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+import { combineReducers } from "redux";
+import employees from "./employeesReducer";
 
 /**
- * Footer component with navigation link
+ * the root of the reducers combined
  */
-const Footer: FC = () => {
-  const { downSm } = useBreakpoints();
-  const location = useLocation();
-  const navigate = useNavigate();
+const storeConfig = configureStore({
+  reducer: combineReducers({
+    employees,
+  }),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(logger),
+});
 
-  return (
-    &lt;Box
-      bgcolor={colors.secondary}
-      height="72px"
-      width="100%"
-      display="flex"
-      justifyContent={downSm ? "center" : "space-around"}
-      alignItems="center"
-      position="fixed"
-      bottom={0}
-      zIndex={1.5}
-    >
-      &lt;Typography variant="h5" color={colors.white}>
-        HRnet
-      &lt;/Typography>
-      &lt;Box maxWidth="224px">
-        &lt;Button
-          label="Create Employee"
-          margin="0"
-          padding="5px 10px"
-          size={location.pathname === "/" ? "large" : "small"}
-          variant="text"
-          sx={{ height: "35px" }}
-          onClick={() => navigate("/")}
-          icon={&lt;AddIcon />}
-        />
-        &lt;Button
-          label="Current Employees"
-          margin="0"
-          padding="5px 10px"
-          size={location.pathname === "/employees" ? "large" : "small"}
-          sx={{ height: "35px" }}
-          variant="text"
-          onClick={() => navigate("/employees")}
-          icon={&lt;ListIcon />}
-        />
-      &lt;/Box>
-    &lt;/Box>
-  );
-};
-
-export default Footer;
+export type RootState = ReturnType&lt;typeof storeConfig.getState>;
+export default storeConfig;
 </code></pre>
         </article>
     </section>
